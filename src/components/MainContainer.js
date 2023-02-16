@@ -10,6 +10,7 @@ function MainContainer(){
     const [musicLibrary, setMusicLibrary] = useState([]);
     const [concertPrograms, setConcertPrograms] = useState([]);
 
+    // Fetching "Pieces" for the music library
     useEffect(()=>{
         fetch("http://localhost:9292/library")
         .then(res=>res.json())
@@ -17,6 +18,7 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
+    // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
         fetch("http://localhost:9292/concerts")
         .then(res=>res.json())
@@ -27,6 +29,7 @@ function MainContainer(){
     console.log("Music Library: ", musicLibrary)
     console.log("Concert Programs: ", concertPrograms)
 
+
     // Return of JSX
     return(
         <div id="main-container">
@@ -36,10 +39,10 @@ function MainContainer(){
                 <Home />
             </Route>
             <Route exact path="/library">
-                <Library />
+                <Library musicLibrary={ musicLibrary } setMusicLibrary={ setMusicLibrary } />
             </Route>
             <Route exact path="/concerts">
-                <ConcertArchives />
+                <ConcertArchives concertPrograms={ concertPrograms } setConcertPrograms={ setConcertPrograms }/>
             </Route>
             <Route path = "*">
                 <h2>Error 404: Page Not Found</h2>

@@ -2,13 +2,27 @@ import React from "react";
 import Piece from "./Piece";
 import NewPieceForm from "./NewPieceForm";
 
-function Library(){
+function Library({ musicLibrary, setMusicLibrary }){
+
+    const piecesToDisplay = musicLibrary.map(p=>{
+        return <Piece
+                    title={p.title}
+                    composer={p.composer}
+                    arranger={p.arranger}
+                    difficulty={p.difficulty}
+                    number_of_players={p.number_of_players}
+                    reference_recording={p.reference_recording}
+                    genre={p.genre}
+                    notes={p.notes}
+                />
+    })
+
+
     return(
         <div  id ="library">
-            <h4>This is the Music Library</h4>
-            <p>This is where indivudal pieces of music go</p>
-            <Piece />
-            <NewPieceForm />
+            {/* <Piece musicLibrary={ musicLibrary }/> */}
+            {piecesToDisplay}
+            <NewPieceForm setMusicLibrary={ setMusicLibrary }/>
         </div>
     )
 };
