@@ -32,7 +32,7 @@ function Piece(props){
             <p>Number of Players: {props.number_of_players}</p>
             { props.notes.length === 0 ? <button>Add Note!</button> : <h4>Notes: </h4> }
             {notesToDisplay}
-            <a href={props.reference_recording} target="_blank">Reference Recording</a>
+            <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a>
         </div>
     )
 };
