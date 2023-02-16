@@ -13,9 +13,19 @@ function MainContainer(){
     useEffect(()=>{
         fetch("http://localhost:9292/library")
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>setMusicLibrary(data))
         .catch(err=>console.log(err));
     }, []);
+
+    useEffect(()=>{
+        fetch("http://localhost:9292/concerts")
+        .then(res=>res.json())
+        .then(data=>setConcertPrograms(data))
+        .catch(err=>console.log(err));
+    }, []);
+
+    console.log("Music Library: ", musicLibrary)
+    console.log("Concert Programs: ", concertPrograms)
 
     // Return of JSX
     return(
