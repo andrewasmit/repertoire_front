@@ -2,37 +2,30 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#main-container{
+  border: 3px dotted blue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#home-page{
+  border: 2px solid red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#library{
+  border: 2px solid red;
 }
 
-.App-link {
-  color: #61dafb;
+#concert-archives{
+  border: 2px solid red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#footer{
+  border: 1px solid grey;
+}
+
+#navbar{
+  border: 2px solid green;
+}
+
+#header{
+  border:2px solid goldenrod;
 }
