@@ -137,15 +137,15 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
 
             {/* Buttons to include Optional Inputs */}
             <label>
-                <input type="checkbox" onChange={()=>setShowArr(!showArr)}/>
+                <input type="checkbox" onChange={()=>setShowArr(!showArr)}checked={showArr}/>
                 Include arranger
             </label>
             <label>
-                <input type="checkbox" onChange={()=>setShowRefRecord(!showRefRecord)}/>
+                <input type="checkbox" onChange={()=>setShowRefRecord(!showRefRecord)}checked={showRefRecord}/>
                 Include reference recording
             </label>
             <label>
-                <input type="checkbox" onChange={()=>setShowNotes(!showNotes)}/>
+                <input type="checkbox" onChange={()=>setShowNotes(!showNotes)} checked={showNotes}/>
                 Include notes about the piece
             </label>
             <input type="submit" value="Submit" id="new-piece-submit" />
