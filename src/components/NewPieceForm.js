@@ -4,12 +4,12 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
 
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
-    const [arranger, setArranger] = useState("")
-    const [notes, setNotes] = useState("")
+    const [arranger, setArranger] = useState(null)
+    const [notes, setNotes] = useState(null)
     const [genre, setGenre] = useState("--Select Genre--")
     const [difficulty, setDifficulty] = useState("--Select Difficulty--")
     const [numPlayers, setNumPlayers] = useState("--Select Number of Players--")
-    const [refRecord, setRefRecord] = useState("")
+    const [refRecord, setRefRecord] = useState(null)
 
     const [showArr, setShowArr] = useState(false)
     const [showNotes, setShowNotes] = useState(false)
@@ -18,21 +18,12 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
     const [createGenre, setCreateGenre] = useState(false)
 
 
-    function handleShowArrangerChange(){
-        setShowArr(!showArr);
-    }
-    function handleShowNotesChange(){
-        setShowNotes(!showNotes);
-    }
-    function handleShowRefRecordChange(){
-        setShowRefRecord(!showRefRecord);
-    }
-
     useEffect(()=>{ 
         setGenreDropdownOptions([...new Set(genreDropdownOptions)].map(genre=>{
             return <option>{genre}</option>
         }))
     }, [musicLibrary, genre])
+
 
     function handleGenreSelect(e){
         setGenre(e.target.value)
@@ -40,10 +31,51 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
             setCreateGenre(true)
         }
     }
+
+    function handleNewPieceSubmit(e){
+        e.preventDefault();
+        const newPiece = {
+            title: title,
+            composer: composer,
+            arranger: arranger,
+            difficulty: parseInt(difficulty.split('').shift()),
+            number_of_players: parseInt(numPlayers),
+            genre: genre,
+            reference_recording: refRecord,
+            notes: notes
+        };
+        fetch("http://localhost:9292/library", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(newPiece)
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+
+        setTitle("")
+        setComposer("")
+        setArranger(null)
+        setNotes(null)
+        setGenre("--Select Genre--")
+        setDifficulty("--Select Difficulty--")
+        setNumPlayers("--Select Number of Players--")
+        setRefRecord(null)
+        setShowArr(!showArr)
+        setShowNotes(!showNotes)
+        setShowRefRecord(!showRefRecord)
+    }
+
     
+
+    
+
     // Return JSX
     return(
-        <form>
+    <div>
+        <h2>Add A New Piece</h2>
+        <form onSubmit={handleNewPieceSubmit}>
             {/* Title */}
             <label>
                 <input value={ title } onChange={e=>setTitle(e.target.value)}placeholder="Title" type="text" name="title" />
@@ -105,18 +137,20 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
 
             {/* Buttons to include Optional Inputs */}
             <label>
-                <input type="checkbox" onChange={handleShowArrangerChange}/>
+                <input type="checkbox" onChange={()=>setShowArr(!showArr)}/>
                 Include arranger
             </label>
             <label>
-                <input type="checkbox" onChange={handleShowRefRecordChange}/>
+                <input type="checkbox" onChange={()=>setShowRefRecord(!showRefRecord)}/>
                 Include reference recording
             </label>
             <label>
-                <input type="checkbox" onChange={handleShowNotesChange}/>
+                <input type="checkbox" onChange={()=>setShowNotes(!showNotes)}/>
                 Include notes about the piece
             </label>
+            <input type="submit" value="Submit" id="new-piece-submit" />
         </form>
+    </div>
     )
 };
 
