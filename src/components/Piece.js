@@ -27,8 +27,17 @@ function Piece(props){
     function handleAddNote(e){
         e.preventDefault();
         console.log("Piece with ID of", props.id, "clicked.")
-        console.log(newNote)
-        // fetch()
+        console.log("Before Fetch: ", newNote)
+        fetch(`http://localhost:9292/library/${props.id}`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"            
+            },
+            body: JSON.stringify(newNote)
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+        
 
         setShowAddNote(!showAddNote)
         setNewNote("")
