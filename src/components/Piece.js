@@ -30,8 +30,9 @@ function Piece(props){
             <p>Difficulty: {difficultyToString(props.difficulty)}</p>
             <p>Genre: {props.genre}</p>
             <p>Number of Players: {props.number_of_players}</p>
-            { props.notes.length === 0 ? <button>Add Note!</button> : <h4>Notes: </h4> }
+            { props.notes.length === 0 ? null : <h4>Notes: </h4> }
             {notesToDisplay}
+            <button>Add Note!</button>
             <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a>
         </div>
     )

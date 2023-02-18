@@ -26,8 +26,8 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
-    console.log("Music Library: ", musicLibrary)
-    console.log("Concert Programs: ", concertPrograms)
+    // console.log("Music Library: ", musicLibrary)
+    // console.log("Concert Programs: ", concertPrograms)
 
 
     // Return of JSX

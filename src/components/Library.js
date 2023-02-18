@@ -22,7 +22,7 @@ function Library({ musicLibrary, setMusicLibrary }){
         <div  id ="library">
             {/* <Piece musicLibrary={ musicLibrary }/> */}
             {piecesToDisplay}
-            <NewPieceForm setMusicLibrary={ setMusicLibrary }/>
+            <NewPieceForm musicLibrary={musicLibrary} setMusicLibrary={ setMusicLibrary }/>
         </div>
     )
 };
