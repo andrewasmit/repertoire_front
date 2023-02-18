@@ -14,6 +14,7 @@ function Library({ musicLibrary, setMusicLibrary }){
                     reference_recording={p.reference_recording}
                     genre={p.genre}
                     notes={p.notes}
+                    id={p.id}
                 />
     })
 
