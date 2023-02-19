@@ -75,13 +75,15 @@ function Piece(props){
             <h5>{props.composer}</h5>
             { props.arranger === null ? null : <h6>Arr: {props.arranger}</h6> }
             <p>Difficulty: {difficultyToString(props.difficulty)}</p>
-            <p>Genre: {props.genre}</p>
-            <p>Number of Players: {props.number_of_players}</p>
+            {/* { props.genre === "--Select Genre--" ? null : <p>Genre: props.genre</p> } */}
+            <p>Genre: {props.genre === "--Select Genre--" ? null : props.genre}</p> 
+            <p>Number of Players: {props.number_of_players}</p> 
             { props.notes.length === 0 ? null : <h4>Notes: </h4> }
             {notesToDisplay}
             {showAddNote ? <form onSubmit={handleAddNote}><input type="text" value={newNote} onChange={e=>setNewNote(e.target.value)} placeholder="Add new note"/><input type="submit" value="Submit"/></form> : null}
             <button onClick={()=>setShowAddNote(!showAddNote)}>Add Note!</button>
-            <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a>
+            {props.reference_recording === null ? 
+            null : <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a> }
         </div>
     )
 };

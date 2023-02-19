@@ -18,7 +18,6 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
-    console.log(musicLibrary)
 
     // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
@@ -28,6 +27,7 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
+    // console.log(musicLibrary)
 
 
     // Return of JSX
