@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function NewPieceForm({ musicLibrary, setMusicLibrary, handleNewPiece }){
+function NewPieceForm({ musicLibrary, setMusicLibrary }){
 
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
@@ -53,7 +53,7 @@ function NewPieceForm({ musicLibrary, setMusicLibrary, handleNewPiece }){
         })
         .then(res=>res.json())
         .then(data=>setMusicLibrary([...musicLibrary, data]))
-
+        // Resetting the form after submitting
         setTitle("")
         setComposer("")
         setArranger(null)
@@ -62,9 +62,15 @@ function NewPieceForm({ musicLibrary, setMusicLibrary, handleNewPiece }){
         setDifficulty("--Select Difficulty--")
         setNumPlayers("--Select Number of Players--")
         setRefRecord(null)
-        setShowArr(!showArr)
-        setShowNotes(!showNotes)
-        setShowRefRecord(!showRefRecord)
+        if(showArr===true){
+            setShowArr(false)
+        }
+        if(showNotes===true){
+            setShowNotes(false)
+        }
+        if(showRefRecord===true){
+            setRefRecord(false)
+        }
     }
 
     
