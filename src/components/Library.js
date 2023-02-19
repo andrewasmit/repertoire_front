@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Piece from "./Piece";
-import NewPieceForm from "./NewPieceForm";
+import AddEditPieceForm from "./AddEditPieceForm";
 
 function Library({ musicLibrary, setMusicLibrary }){
     const [title, setTitle] = useState("")
@@ -74,7 +74,7 @@ function handleEditPiece(id){
     return(
         <div  id ="library">
             {piecesToDisplay}
-            <NewPieceForm 
+            <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 
                 setMusicLibrary={ setMusicLibrary } 
                 editPiece={ editPiece }
@@ -84,7 +84,7 @@ function handleEditPiece(id){
                 setComposer={setComposer}
                 arranger={arranger}
                 setArranger={setArranger}
-                note={notes}
+                notes={notes}
                 setNotes={setNotes}
                 genre={genre}
                 setGenre={setGenre}

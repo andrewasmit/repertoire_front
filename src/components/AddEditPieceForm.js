@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function NewPieceForm({ 
+function AddEditPieceForm({ 
         musicLibrary, 
         setMusicLibrary, 
         editPiece,
@@ -59,6 +59,7 @@ function NewPieceForm({
             reference_recording: refRecord,
             notes: notes
         };
+        console.log("before Fetch", newPiece)
         fetch("http://localhost:9292/library", {
             method: "POST",
             headers: {
@@ -84,10 +85,10 @@ function NewPieceForm({
             setShowNotes(false)
         }
         if(showRefRecord===true){
-            setRefRecord(false)
+            setShowRefRecord(false)
         }
     }
-
+console.log("In Form: ",notes)
     
     // Return JSX
     return(
@@ -172,4 +173,4 @@ function NewPieceForm({
     )
 };
 
-export default NewPieceForm;
+export default AddEditPieceForm;
