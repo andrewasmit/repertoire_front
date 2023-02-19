@@ -18,6 +18,8 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
+    console.log(musicLibrary)
+
     // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
         fetch("http://localhost:9292/concerts")

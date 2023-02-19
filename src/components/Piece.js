@@ -8,7 +8,10 @@ function Piece(props){
 
     const notesToDisplay = props.notes.map(n=>{
         if(n.note !== undefined){
-            return <p>{n.note}</p>
+            return <div>
+                        <p>{n.note}</p>
+                        <button id={n.id} onClick={handleDeleteNote}>x</button>
+                    </div>
         }
     });
 
@@ -49,7 +52,20 @@ function Piece(props){
         setNewNote("")
     }
 
-    // console.log(props.musicLibrary.splice((props.id - 1), 1, data))
+    function handleDeleteNote(e){
+        e.preventDefault();
+        console.log("Delete note w/ the note_id of: ", e.target.id)
+        fetch(`http://localhost:9292/library/notes/${e.target.id}`, {
+            method: "DELETE",
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            const filtered_arr = [...props.musicLibrary.filter(p=>p.id !== props.id)];
+            filtered_arr.splice(props.id - 1, 0, data )
+            return props.setMusicLibrary(filtered_arr) 
+        })
+    }
+
     
 
     // Return of JSX

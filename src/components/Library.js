@@ -15,6 +15,7 @@ function Library({ musicLibrary, setMusicLibrary }){
                     genre={p.genre}
                     notes={p.notes}
                     id={p.id}
+                    key={p.id}
                     setMusicLibrary={setMusicLibrary}
                     musicLibrary={musicLibrary}
                 />
