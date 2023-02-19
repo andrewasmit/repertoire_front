@@ -30,21 +30,27 @@ function Piece(props){
         e.preventDefault();
         console.log("Piece with ID of", props.id, "clicked.");
         console.log("Before Fetch: ", newNote);
-        fetch(`http://localhost:9292/library/${props.id}`,{
+        const noteToPost = {note: newNote}
+        fetch(`http://localhost:9292/library/${props.id}`, {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"            
             },
-            body: JSON.stringify(newNote)
+            body: JSON.stringify(noteToPost)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data))
-        
-
+        .then(data=>{
+            const filtered_arr = [...props.musicLibrary.filter(p=>p.id !== props.id)];
+            filtered_arr.splice(props.id - 1, 0, data )
+            return props.setMusicLibrary(filtered_arr) 
+        })
+        // Reset "Add Note!" button and input
         setShowAddNote(!showAddNote)
         setNewNote("")
     }
 
+    // console.log(props.musicLibrary.splice((props.id - 1), 1, data))
+    
 
     // Return of JSX
     return(
