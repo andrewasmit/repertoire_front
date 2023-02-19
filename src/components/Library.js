@@ -16,6 +16,7 @@ function Library({ musicLibrary, setMusicLibrary }){
     const [showNotes, setShowNotes] = useState(false)
     const [showRefRecord, setShowRefRecord] = useState(false)
     const[editPiece, setEditPiece] = useState(false);
+    const [editId, setEditId] = useState("")
 
     const piecesToDisplay = musicLibrary.map(p=>{
         return <Piece
@@ -51,8 +52,9 @@ function Library({ musicLibrary, setMusicLibrary }){
     };
 
 function handleEditPiece(id){
-    console.log("In library", id)
-    // setEditPiece(true)
+    // console.log("In library", id)
+    setEditPiece(true)
+    setEditId(id)
     const piece = musicLibrary.filter(p=>p.id===id)[0]
     console.log(piece)
     setTitle(piece.title)
@@ -78,6 +80,9 @@ function handleEditPiece(id){
                 musicLibrary={ musicLibrary } 
                 setMusicLibrary={ setMusicLibrary } 
                 editPiece={ editPiece }
+                setEditPiece={setEditPiece}
+                editId={editId}
+                setEditId={setEditId}
                 title={title}
                 setTitle={setTitle}
                 composer={composer}

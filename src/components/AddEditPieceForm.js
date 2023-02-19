@@ -4,6 +4,9 @@ function AddEditPieceForm({
         musicLibrary, 
         setMusicLibrary, 
         editPiece,
+        setEditPiece,
+        editId,
+        setEditId,
         title,
         setTitle,
         composer,
@@ -59,7 +62,7 @@ function AddEditPieceForm({
             reference_recording: refRecord,
             notes: notes
         };
-        console.log("before Fetch", newPiece)
+        console.log("before Fetch (NEW)", newPiece)
         fetch("http://localhost:9292/library", {
             method: "POST",
             headers: {
@@ -88,13 +91,62 @@ function AddEditPieceForm({
             setShowRefRecord(false)
         }
     }
-console.log("In Form: ",notes)
+
+// Submit form for EDIT piece
+    function handleEditPieceSubmit(e){
+        e.preventDefault();
+        const editedPiece = {
+            title: title,
+            composer: composer,
+            arranger: arranger,
+            difficulty: parseInt(difficulty.split('').shift()),
+            number_of_players: parseInt(numPlayers),
+            genre: genre,
+            reference_recording: refRecord,
+            notes: notes
+        };
+        console.log("before Fetch (EDIT)", editedPiece)
+        fetch(`http://localhost:9292/library/${editId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(editedPiece)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            const filtered_arr = [...musicLibrary.filter(p=>p.id !== editId)];
+            filtered_arr.splice(editId - 1, 0, data )
+            return setMusicLibrary(filtered_arr)
+        })
+        // Resetting the form after submitting
+        setEditPiece(false)
+        setEditId(null)
+        setTitle("")
+        setComposer("")
+        setArranger(null)
+        setNotes(null)
+        setGenre("--Select Genre--")
+        setDifficulty("--Select Difficulty--")
+        setNumPlayers("--Select Number of Players--")
+        setRefRecord(null)
+        if(showArr===true){
+            setShowArr(false)
+        }
+        if(showNotes===true){
+            setShowNotes(false)
+        }
+        if(showRefRecord===true){
+            setShowRefRecord(false)
+        }
+    }
     
+
     // Return JSX
     return(
     <div>
         <h2>Add A New Piece</h2>
-        <form onSubmit={ editPiece ? null : handleNewPieceSubmit }>
+        <form onSubmit={ editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }>
             {/* Title */}
             <label>
                 <input value={ title } onChange={e=>setTitle(e.target.value)}placeholder="Title" type="text" name="title" />
