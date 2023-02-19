@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Piece(props){
 
-    // const [editPiece, setEditPiece] = useState(false)
     const [showAddNote, setShowAddNote] = useState(false);
     const [newNote, setNewNote] = useState("");
 
@@ -15,19 +14,6 @@ function Piece(props){
         }
     });
 
-    function difficultyToString(int){
-        if(int === 1){
-            return "Easy"
-        } if(int === 2){
-            return "Medium-Easy"
-        } if(int===3){
-            return "Medium"
-        } if (int===4){
-            return "Medium-Advanced"
-        }if(int===5){
-            return "Advanced"
-        }
-    };
 
     function handleAddNote(e){
         e.preventDefault();
@@ -66,16 +52,18 @@ function Piece(props){
         })
     }
 
-    
+    function handleEditPieceClick(){
+        props.handleEditPiece(props.id)
+    }
 
+    
     // Return of JSX
     return(
         <div className="library-card">
             <h4>"{props.title}"</h4>
             <h5>{props.composer}</h5>
             { props.arranger === null ? null : <h6>Arr: {props.arranger}</h6> }
-            <p>Difficulty: {difficultyToString(props.difficulty)}</p>
-            {/* { props.genre === "--Select Genre--" ? null : <p>Genre: props.genre</p> } */}
+            <p>Difficulty: {props.difficultyToString(props.difficulty)}</p>
             <p>Genre: {props.genre === "--Select Genre--" ? null : props.genre}</p> 
             <p>Number of Players: {props.number_of_players}</p> 
             { props.notes.length === 0 ? null : <h4>Notes: </h4> }
@@ -84,6 +72,7 @@ function Piece(props){
             <button onClick={()=>setShowAddNote(!showAddNote)}>Add Note!</button>
             {props.reference_recording === null ? 
             null : <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a> }
+            <button onClick={handleEditPieceClick}>Edit Piece</button>
         </div>
     )
 };

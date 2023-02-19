@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from "react";
 
-function NewPieceForm({ musicLibrary, setMusicLibrary }){
+function NewPieceForm({ 
+        musicLibrary, 
+        setMusicLibrary, 
+        editPiece,
+        title,
+        setTitle,
+        composer,
+        setComposer,
+        arranger,
+        setArranger,
+        notes,
+        setNotes,
+        genre,
+        setGenre,
+        difficulty,
+        setDifficulty,
+        numPlayers,
+        setNumPlayers,
+        refRecord,
+        setRefRecord,
+        showArr,
+        setShowArr,
+        showNotes,
+        setShowNotes,
+        showRefRecord,
+        setShowRefRecord
+    }){
 
-    const [title, setTitle] = useState("")
-    const [composer, setComposer] = useState("")
-    const [arranger, setArranger] = useState(null)
-    const [notes, setNotes] = useState(null)
-    const [genre, setGenre] = useState("--Select Genre--")
-    const [difficulty, setDifficulty] = useState("--Select Difficulty--")
-    const [numPlayers, setNumPlayers] = useState("--Select Number of Players--")
-    const [refRecord, setRefRecord] = useState(null)
-
-    const [showArr, setShowArr] = useState(false)
-    const [showNotes, setShowNotes] = useState(false)
-    const [showRefRecord, setShowRefRecord] = useState(false)
     const [genreDropdownOptions, setGenreDropdownOptions] = useState(musicLibrary.map(p=>p.genre))
     const [createGenre, setCreateGenre] = useState(false)
 
@@ -32,6 +46,7 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
         }
     }
 
+// Submit form for NEW piece
     function handleNewPieceSubmit(e){
         e.preventDefault();
         const newPiece = {
@@ -74,14 +89,11 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
     }
 
     
-
-    
-
     // Return JSX
     return(
     <div>
         <h2>Add A New Piece</h2>
-        <form onSubmit={handleNewPieceSubmit}>
+        <form onSubmit={ editPiece ? null : handleNewPieceSubmit }>
             {/* Title */}
             <label>
                 <input value={ title } onChange={e=>setTitle(e.target.value)}placeholder="Title" type="text" name="title" />
