@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function NewPieceForm({ musicLibrary, setMusicLibrary }){
+function NewPieceForm({ musicLibrary, setMusicLibrary, handleNewPiece }){
 
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
@@ -52,7 +52,7 @@ function NewPieceForm({ musicLibrary, setMusicLibrary }){
             body: JSON.stringify(newPiece)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>setMusicLibrary([...musicLibrary, data]))
 
         setTitle("")
         setComposer("")

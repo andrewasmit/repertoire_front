@@ -21,9 +21,8 @@ function Library({ musicLibrary, setMusicLibrary }){
 
     return(
         <div  id ="library">
-            {/* <Piece musicLibrary={ musicLibrary }/> */}
             {piecesToDisplay}
-            <NewPieceForm musicLibrary={musicLibrary} setMusicLibrary={ setMusicLibrary }/>
+            <NewPieceForm musicLibrary={ musicLibrary } setMusicLibrary={ setMusicLibrary }/>
         </div>
     )
 };

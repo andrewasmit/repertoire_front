@@ -3,12 +3,14 @@ import React, { useState } from "react";
 function Piece(props){
 
     // const [editPiece, setEditPiece] = useState(false)
-    const [showAddNote, setShowAddNote] = useState(false)
-    const [newNote, setNewNote] = useState("")
+    const [showAddNote, setShowAddNote] = useState(false);
+    const [newNote, setNewNote] = useState("");
 
     const notesToDisplay = props.notes.map(n=>{
-        return <p>{n.note}</p>
-    })
+        if(n.note !== undefined){
+            return <p>{n.note}</p>
+        }
+    });
 
     function difficultyToString(int){
         if(int === 1){
@@ -26,8 +28,8 @@ function Piece(props){
 
     function handleAddNote(e){
         e.preventDefault();
-        console.log("Piece with ID of", props.id, "clicked.")
-        console.log("Before Fetch: ", newNote)
+        console.log("Piece with ID of", props.id, "clicked.");
+        console.log("Before Fetch: ", newNote);
         fetch(`http://localhost:9292/library/${props.id}`,{
             method: "POST",
             headers: {
