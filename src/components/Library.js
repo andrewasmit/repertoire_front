@@ -15,7 +15,7 @@ function Library({ musicLibrary, setMusicLibrary }){
     const [showArr, setShowArr] = useState(false)
     const [showNotes, setShowNotes] = useState(false)
     const [showRefRecord, setShowRefRecord] = useState(false)
-    const[editPiece, setEditPiece] = useState(false);
+    const [editPiece, setEditPiece] = useState(false);
     const [editId, setEditId] = useState("")
 
     const piecesToDisplay = musicLibrary.map(p=>{
@@ -62,7 +62,7 @@ function handleEditPiece(id){
     setComposer(piece.composer)
     setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setGenre(piece.genre)
-    setNotes(piece.notes)
+    // setNotes(piece.notes)
     setNumPlayers(piece.number_of_players)
     setRefRecord(piece.reference_recording)
     if(piece.reference_recording !== null){
