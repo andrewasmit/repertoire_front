@@ -6,19 +6,19 @@ function ConcertArchives({ concertPrograms, setConcertPrograms, musicLibrary }){
 
     // console.log("ConcertPrograms: In archives=> ", concertPrograms)
 
-    const [ensembles, setEnsembles] = useState([])
+    // const [ensembles, setEnsembles] = useState([])
 
-    useEffect(()=>{
-        const ensembleArr = [];
-        concertPrograms.map(c=>c.ensembles.map(e=>ensembleArr.push(e)))
-        // console.log("All - before filtering ", ensembleArr)
+    // useEffect(()=>{
+    //     const ensembleArr = [];
+    //     concertPrograms.map(c=>c.ensembles.map(e=>ensembleArr.push(e)))
+    //     // console.log("All - before filtering ", ensembleArr)
 
-        // ensembleArr.map(obj=>{
-        //    return filteredEnsArr.contains(obj) ? null : filteredEnsArr.push(obj)
-        // })
+    //     // ensembleArr.map(obj=>{
+    //     //    return filteredEnsArr.contains(obj) ? null : filteredEnsArr.push(obj)
+    //     // })
 
 
-    }, [concertPrograms])
+    // }, [concertPrograms])
 
 
     const programsToDisplay = concertPrograms.map(c=>{

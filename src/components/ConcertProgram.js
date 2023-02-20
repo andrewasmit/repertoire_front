@@ -3,18 +3,16 @@ import Performance from "./Performance";
 
 function ConcertProgram({ concert_description, year, ensembles, performances, musicLibrary }){
 
-    // console.log("Music Library: ", musicLibrary)
-    // console.log("Performances: ", performances)
-    console.log(musicLibrary.filter(piece=>piece.id === 6)[0].composer)
-    // console.log(musicLibrary[1].id)
+    console.log("Music Library: ", musicLibrary)
+    console.log("Performances: ", performances)
+    console.log("Ensembles: ", ensembles)
 
 
     const performancesToDisplay = performances.map(performance=>{
-        const pieceId = performance.piece_id
-        const composer = musicLibrary.filter(piece=>piece.id === pieceId)[0].composer
-        const arranger = musicLibrary.filter(piece=>piece.id === pieceId)[0].arranger
-        const title = musicLibrary.filter(piece=>piece.id === pieceId)[0].title
-        const ensemble = musicLibrary.filter(piece=>piece.id === pieceId)[0].ensemble
+        const composer = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].composer
+        const arranger = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].arranger
+        const title = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].title
+        const ensemble = ensembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
 
         return <Performance 
                     composer={composer}
@@ -29,9 +27,8 @@ function ConcertProgram({ concert_description, year, ensembles, performances, mu
     // Return of JSX
     return(
         <div>
-            <h4>{concert_description}</h4>
-            <p>{year}</p>
-            {/* <Performance /> */}
+            <h2>{concert_description}</h2>
+            <h3>{year}</h3>
             {performancesToDisplay}
         </div>
     )
