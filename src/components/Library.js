@@ -62,7 +62,6 @@ function handleEditPiece(id){
     setComposer(piece.composer)
     setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setGenre(piece.genre)
-    // setNotes(piece.notes)
     setNumPlayers(piece.number_of_players)
     setRefRecord(piece.reference_recording)
     if(piece.reference_recording !== null){

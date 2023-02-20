@@ -42,7 +42,7 @@ function MainContainer(){
                 <Library musicLibrary={ musicLibrary } setMusicLibrary={ setMusicLibrary } />
             </Route>
             <Route exact path="/concerts">
-                <ConcertArchives concertPrograms={ concertPrograms } setConcertPrograms={ setConcertPrograms }/>
+                <ConcertArchives concertPrograms={ concertPrograms } setConcertPrograms={ setConcertPrograms } musicLibrary={ musicLibrary }/>
             </Route>
             <Route path = "*">
                 <h2>Error 404: Page Not Found</h2>
