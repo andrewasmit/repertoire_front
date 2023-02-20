@@ -4,7 +4,7 @@ import NewConcertForm from "./NewConcertForm";
 
 function ConcertArchives({ concertPrograms, setConcertPrograms, musicLibrary }){
 
-    console.log("ConcertPrograms: In archives=> ", concertPrograms)
+    // console.log("ConcertPrograms: In archives=> ", concertPrograms)
 
     const [ensembles, setEnsembles] = useState([])
 
@@ -32,6 +32,7 @@ function ConcertArchives({ concertPrograms, setConcertPrograms, musicLibrary }){
                     musicLibrary={musicLibrary}
                 />
     })
+
 
     return(
         <div id="concert-archives">

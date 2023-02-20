@@ -37,7 +37,7 @@ function AddEditPieceForm({
 
     useEffect(()=>{ 
         setGenreDropdownOptions([...new Set(genreDropdownOptions)].map(genre=>{
-            return <option>{genre}</option>
+            return <option key={genre}>{genre}</option>
         }))
     }, [musicLibrary, genre])
 

@@ -1,15 +1,14 @@
 import React from "react";
 
-function Performance({ concert_id, ensemble_id, piece_id, id, key, musicLibrary }){
-
-    console.log("In Performance: ", musicLibrary)
+function Performance({ composer, arranger, title, ensemble, id }){
 
     // Return of JSX
     return(
         <div>
-            <h4>Title of piece</h4>
-            <h5>Composer</h5>
-            <p>Ensemble performed</p>
+            <h4>{title}</h4>
+            <h5>{composer}</h5>
+            {arranger === null || undefined ? null : <h5>Arr: {arranger}</h5>}
+            <p>{ensemble}</p>
         </div>
     )
 };
