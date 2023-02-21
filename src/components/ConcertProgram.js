@@ -5,8 +5,11 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
 
     const [showProgram, setShowProgram] = useState(false);
     const [addAPiece, setAddAPiece] = useState(false);
-    const [newPerformance, setNewPerformance] = useState("--Select a Piece--")
-    const [selectedEns, setSelectedEns] = useState("--Select an Ensemble--")
+    const [editConcert, setEditConcert] = useState(false);
+    const [newPerformance, setNewPerformance] = useState("--Select a Piece--");
+    const [selectedEns, setSelectedEns] = useState("--Select an Ensemble--");
+    const [description, setDescription] = useState(concert_description);
+    const [concertYear, setConcertYear] = useState(year);
 
 
     const performancesToDisplay = performances.map(performance=>{
@@ -34,7 +37,7 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
             ensemble: selectedEns,
             concert: id
         };
-        fetch(`http://localhost:9292/concerts/${id}`, {
+        fetch(`http://localhost:9292/concerts/performance/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type" : "application/json"
@@ -48,6 +51,24 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setAddAPiece(false)
     }
 
+    function handleEditConcert(e){
+        e.preventDefault();
+        const editedConcert = {
+            concert_description: description,
+            year: concertYear
+        };
+        fetch(`http://localhost:9292/concerts/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(editedConcert)
+        })
+        .then(res=>res.json())
+        .then(data=>handleConcertPatch(data))
+        setEditConcert(false);
+    }
+
     const dropdownOptionsForPiece = musicLibrary.map(p=>{
         return <option id={p.id}>{p.title}</option>
     })
@@ -57,13 +78,22 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
     })
 
 
-
-
     // Return of JSX
     return(
         <div className="concert-program">
-            <h2>{concert_description}</h2>
-            <h3>{year}</h3>
+            { 
+            editConcert ?
+            <form onSubmit={handleEditConcert}>
+                <input type="text" value={description} onChange={e=>setDescription(e.target.value)}></input>
+                <input type="text" value={concertYear} onChange={e=>setConcertYear(e.target.value)}></input>
+                <input type="submit" value="Submit" id="edit-concert-submit"/>
+            </form> : 
+            <div>
+                <h2>{concert_description}</h2>
+                <h3>{year}</h3>
+            </div> 
+            }
+            <button onClick={()=>setEditConcert(!editConcert)}>Edit Concert</button>
             <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
             <button onClick={()=>setAddAPiece(true)}>Add Performance to Concert</button>
             { addAPiece ?   <form onSubmit={handleAddNewPiece}>
