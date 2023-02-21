@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Performance from "./Performance";
 
-function ConcertProgram({ concert_description, year, ensembles, performances, musicLibrary }){
+function ConcertProgram({ id, concert_description, year, ensembles, performances, musicLibrary, handleDeletePerformance }){
 
     // console.log("Music Library: ", musicLibrary)
-    console.log("Performances: ", performances)
+    // console.log("Performances: ", performances)
     // console.log("Ensembles: ", ensembles)
 
     const [showProgram, setShowProgram] = useState(false);
@@ -23,8 +23,13 @@ function ConcertProgram({ concert_description, year, ensembles, performances, mu
                     ensemble={ensemble}
                     id={performance.id}
                     key={performance.id}
+                    handleDeletePerformance={handleDeletePerformance}
                 />
     }) 
+
+    function handleAddPerformanceToConcert(){
+        console.log("Add Performance to Concert w/ ID of: ", id)
+    }
 
     // Return of JSX
     return(
@@ -32,6 +37,7 @@ function ConcertProgram({ concert_description, year, ensembles, performances, mu
             <h2>{concert_description}</h2>
             <h3>{year}</h3>
             <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
+            <button onClick={handleAddPerformanceToConcert}>Add Performance to Concert</button>
             { showProgram ? performancesToDisplay : null }
         </div>
     )
