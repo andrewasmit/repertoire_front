@@ -5,6 +5,7 @@ import NewConcertForm from "./NewConcertForm";
 function ConcertArchives({ musicLibrary }){
 
     const [concertPrograms, setConcertPrograms] = useState([]);
+    const [allEnsembles, setAllEnsembles] = useState([]);
 
     // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
@@ -14,10 +15,18 @@ function ConcertArchives({ musicLibrary }){
         .catch(err=>console.log(err));
     }, []);
 
+    useEffect(()=>{
+        fetch("http://localhost:9292/ensembles")
+        .then(res=>res.json())
+        .then(data=>setAllEnsembles(data))
+        .catch(err=>console.log(err));
+    }, []);
+
+
     const programsToDisplay = concertPrograms.map(c=>{
         return <ConcertProgram 
                     concert_description={c.concert_description} 
-                    ensembles={c.ensembles}
+                    allEnsembles={allEnsembles}
                     performances={c.performances}
                     year={c.year}
                     id={c.id}

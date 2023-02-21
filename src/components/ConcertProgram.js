@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Performance from "./Performance";
 
-function ConcertProgram({ id, concert_description, year, ensembles, performances, musicLibrary, handleDeletePerformance }){
+function ConcertProgram({ id, concert_description, year, allEnsembles, performances, musicLibrary, handleDeletePerformance }){
 
     // console.log("Music Library: ", musicLibrary)
     // console.log("Performances: ", performances)
-    console.log("Ensembles: ", ensembles)
+    // console.log("Ensembles: ", ensembles)
 
     const [showProgram, setShowProgram] = useState(false);
     const [addAPiece, setAddAPiece] = useState(false);
@@ -17,7 +17,7 @@ function ConcertProgram({ id, concert_description, year, ensembles, performances
         const composer = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].composer
         const arranger = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].arranger
         const title = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].title
-        const ensemble = ensembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
+        const ensemble = allEnsembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
 
         return <Performance 
                     composer={composer}
@@ -39,7 +39,7 @@ function ConcertProgram({ id, concert_description, year, ensembles, performances
         return <option id={p.id}>{p.title}</option>
     })
 
-    const dropdownOptionsForEnsembles = ensembles.map(p=>{
+    const dropdownOptionsForEnsembles = allEnsembles.map(p=>{
         return <option id={p.id}>{p.name}</option>
     })
 
