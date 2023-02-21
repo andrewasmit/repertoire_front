@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Performance from "./Performance";
 
 function ConcertProgram({ concert_description, year, ensembles, performances, musicLibrary }){
 
-    console.log("Music Library: ", musicLibrary)
+    // console.log("Music Library: ", musicLibrary)
     console.log("Performances: ", performances)
-    console.log("Ensembles: ", ensembles)
+    // console.log("Ensembles: ", ensembles)
+
+    const [showProgram, setShowProgram] = useState(false);
 
 
     const performancesToDisplay = performances.map(performance=>{
@@ -26,10 +28,11 @@ function ConcertProgram({ concert_description, year, ensembles, performances, mu
 
     // Return of JSX
     return(
-        <div>
+        <div className="concert-program">
             <h2>{concert_description}</h2>
             <h3>{year}</h3>
-            {performancesToDisplay}
+            <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
+            { showProgram ? performancesToDisplay : null }
         </div>
     )
 };
