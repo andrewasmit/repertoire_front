@@ -20,7 +20,7 @@ function ConcertArchives({ musicLibrary }){
         .then(res=>res.json())
         .then(data=>setAllEnsembles(data))
         .catch(err=>console.log(err));
-    }, []);
+    }, [musicLibrary]);
 
 
     const programsToDisplay = concertPrograms.map(c=>{
@@ -32,17 +32,16 @@ function ConcertArchives({ musicLibrary }){
                     id={c.id}
                     key={c.id}
                     musicLibrary={musicLibrary}
-                    handleDeletePerformance={handleDeletePerformance}
+                    handleConcertPatch={handleConcertPatch}
                 />
     })
 
-    function handleDeletePerformance(data){
+    function handleConcertPatch(data){
         const filtered_arr = [...concertPrograms.filter(concert=>concert.id !== data.id)]
         filtered_arr.splice(data.id - 1, 0, data)
         return setConcertPrograms(filtered_arr) 
     }
 
-    // console.log("ConcertPrograms: ", concertPrograms)
 
 
     return(

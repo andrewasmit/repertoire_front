@@ -1,6 +1,6 @@
 import React from "react";
 
-function Performance({ composer, arranger, title, ensemble, id, handleDeletePerformance }){
+function Performance({ composer, arranger, title, ensemble, id, handleConcertPatch }){
 
 
     function handleDeletePerformanceClick(e){
@@ -9,7 +9,7 @@ function Performance({ composer, arranger, title, ensemble, id, handleDeletePerf
             method: "DELETE"
         })
         .then(res=>res.json())
-        .then(data=>handleDeletePerformance(data))
+        .then(data=>handleConcertPatch(data))
     }
 
     // Return of JSX
