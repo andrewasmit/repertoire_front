@@ -8,9 +8,10 @@ function AddEditPieceForm(props){
 
     useEffect(()=>{ 
         setGenreDropdownOptions([...new Set(genreDropdownOptions)].map(genre=>{
-            return <option key={props.genre}>{props.genre}</option>
+            return <option key={genre}>{genre}</option>
         }))
     }, [props.musicLibrary, props.genre])
+
 
 
     function handleGenreSelect(e){
@@ -44,14 +45,6 @@ function AddEditPieceForm(props){
         .then(res=>res.json())
         .then(data=>props.setMusicLibrary([...props.musicLibrary, data]))
         // Resetting the form after submitting
-        props.setTitle("")
-        props.setComposer("")
-        props.setArranger(null)
-        props.setNotes(null)
-        props.setGenre("--Select Genre--")
-        props.setDifficulty("--Select Difficulty--")
-        props.setNumPlayers("--Select Number of Players--")
-        props.setRefRecord(null)
         if(props.showArr===true){
             props.setShowArr(false)
         }
@@ -61,6 +54,19 @@ function AddEditPieceForm(props){
         if(props.showRefRecord===true){
             props.setShowRefRecord(false)
         }
+        if(props.editPiece===true){
+            props.setEditPiece(false)
+        }if(createGenre===true){
+            setCreateGenre(false)
+        }
+        props.setTitle("")
+        props.setComposer("")
+        props.setArranger(null)
+        props.setNotes(null)
+        props.setGenre("--Select Genre--")
+        props.setDifficulty("--Select Difficulty--")
+        props.setNumPlayers("--Select Number of Players--")
+        props.setRefRecord(null)
     }
 
 // Submit form for EDIT piece
@@ -109,6 +115,10 @@ function AddEditPieceForm(props){
         }
         if(props.showRefRecord===true){
             props.setShowRefRecord(false)
+        }if(props.editPiece===true){
+            props.setEditPiece(false)
+        }if(createGenre===true){
+            setCreateGenre(false)
         }
     }
     

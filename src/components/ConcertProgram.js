@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
 
 function ConcertProgram({ id, concert_description, year, allEnsembles, performances, musicLibrary, handleConcertPatch }){
@@ -10,7 +10,9 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
     const [selectedEns, setSelectedEns] = useState("--Select an Ensemble--");
     const [description, setDescription] = useState(concert_description);
     const [concertYear, setConcertYear] = useState(year);
-
+    const [dropdownOptionsForEnsembles, setDropdownOptionsForEnsembles] = useState(allEnsembles.map(p=>{
+        return <option id={p.id}>{p.name}</option>
+    }))
 
     const performancesToDisplay = performances.map(performance=>{
         const composer = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].composer
@@ -29,6 +31,9 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
                 />
     }) 
 
+    // console.log("TEST", musicLibrary.find(p=>p.id === performances[0].id))
+    // console.log(selectedEns)
+    // console.log(dropdownOptionsForEnsembles)
 
     function handleAddNewPiece(e){
         e.preventDefault();
@@ -69,13 +74,21 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setEditConcert(false);
     }
 
+    function handleEnsSelect(e){
+        setSelectedEns(e.target.value);
+        if(selectedEns === "*Create New Ensemble*"){
+            console.log("AWW YEAH BABY")
+        }
+    }
+
     const dropdownOptionsForPiece = musicLibrary.map(p=>{
         return <option id={p.id}>{p.title}</option>
     })
 
-    const dropdownOptionsForEnsembles = allEnsembles.map(p=>{
-        return <option id={p.id}>{p.name}</option>
-    })
+useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
+    return <option id={p.id}>{p.name}</option>
+    }))
+}, []) 
 
 
     // Return of JSX
@@ -101,8 +114,9 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
                                     <option disabled>--Select a Piece--</option>
                                     {dropdownOptionsForPiece}
                                 </select>
-                                <select value={selectedEns} onChange={e=>setSelectedEns(e.target.value)}>
+                                <select value={selectedEns} onChange={handleEnsSelect}>
                                     <option disabled>--Select an Ensemble--</option>
+                                    <option>*Create New Ensemble*</option>
                                     {dropdownOptionsForEnsembles}
                                 </select>
                                 <input type="submit" value="Submit" id="add-performance-submit" />

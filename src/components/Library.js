@@ -52,11 +52,9 @@ function Library({ musicLibrary, setMusicLibrary }){
     };
 
 function handleEditPiece(id){
-    // console.log("In library", id)
     setEditPiece(true)
     setEditId(id)
     const piece = musicLibrary.filter(p=>p.id===id)[0]
-    console.log(piece)
     setTitle(piece.title)
     setArranger(piece.arranger)
     setComposer(piece.composer)

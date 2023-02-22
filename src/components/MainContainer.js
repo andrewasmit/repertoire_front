@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import Library from "./Library";
 import ConcertArchives from "./ConcertArchives";
 import Home from "./Home";
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 function MainContainer(){
-    // const history =useHistory();
 
     const [musicLibrary, setMusicLibrary] = useState([]);
 
@@ -16,6 +15,8 @@ function MainContainer(){
         .then(data=>setMusicLibrary(data))
         .catch(err=>console.log(err));
     }, []);
+
+    // console.log("In Main:" , musicLibrary)
 
 
     // Return of JSX
