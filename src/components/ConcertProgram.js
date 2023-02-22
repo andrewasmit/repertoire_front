@@ -31,10 +31,8 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
                 />
     }) 
 
-    // console.log("TEST", musicLibrary.find(p=>p.id === performances[0].id))
-    // console.log(selectedEns)
-    // console.log(dropdownOptionsForEnsembles)
-
+    
+// Fetch for Adding a new Piece
     function handleAddNewPiece(e){
         e.preventDefault();
         const pieceToAdd = {
@@ -56,6 +54,7 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setAddAPiece(false)
     }
 
+    // Fetch for editing the Concert Program details (name/year)
     function handleEditConcert(e){
         e.preventDefault();
         const editedConcert = {
@@ -74,21 +73,16 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setEditConcert(false);
     }
 
-    function handleEnsSelect(e){
-        setSelectedEns(e.target.value);
-        if(selectedEns === "*Create New Ensemble*"){
-            console.log("AWW YEAH BABY")
-        }
-    }
 
-    const dropdownOptionsForPiece = musicLibrary.map(p=>{
+    const dropdownOptionsForPiece = [...new Set(musicLibrary)].map(p=>{
         return <option id={p.id}>{p.title}</option>
     })
 
 useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
     return <option id={p.id}>{p.name}</option>
     }))
-}, []) 
+}, [allEnsembles]) 
+
 
 
     // Return of JSX
@@ -106,21 +100,21 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                 <h3>{year}</h3>
             </div> 
             }
-            <button onClick={()=>setEditConcert(!editConcert)}>Edit Concert</button>
             <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
+            <button onClick={()=>setEditConcert(!editConcert)}>Edit Concert</button>
             <button onClick={()=>setAddAPiece(true)}>Add Performance to Concert</button>
             { addAPiece ?   <form onSubmit={handleAddNewPiece}>
                                 <select value={newPerformance} onChange={e=>setNewPerformance(e.target.value)}>
                                     <option disabled>--Select a Piece--</option>
                                     {dropdownOptionsForPiece}
                                 </select>
-                                <select value={selectedEns} onChange={handleEnsSelect}>
+                                <select value={selectedEns} onChange={e=>setSelectedEns(e.target.value)}>
                                     <option disabled>--Select an Ensemble--</option>
-                                    <option>*Create New Ensemble*</option>
                                     {dropdownOptionsForEnsembles}
-                                </select>
+                                </select> 
                                 <input type="submit" value="Submit" id="add-performance-submit" />
-                            </form> : null }
+                                <button onClick={()=>setAddAPiece(false)}>Discard New Piece</button>
+                            </form>  : null } 
             { showProgram ? performancesToDisplay : null }
         </div>
     )

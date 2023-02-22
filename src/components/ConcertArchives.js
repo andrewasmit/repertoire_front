@@ -6,6 +6,8 @@ function ConcertArchives({ musicLibrary }){
 
     const [concertPrograms, setConcertPrograms] = useState([]);
     const [allEnsembles, setAllEnsembles] = useState([]);
+    const [newEns, setNewEns] = useState("");
+    const [addNewEns, setAddNewEns] = useState(false);
 
     // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
@@ -13,8 +15,9 @@ function ConcertArchives({ musicLibrary }){
         .then(res=>res.json())
         .then(data=>setConcertPrograms(data))
         .catch(err=>console.log(err));
-    }, []);
+    }, [musicLibrary]);
 
+    // Fetching ensembles
     useEffect(()=>{
         fetch("http://localhost:9292/ensembles")
         .then(res=>res.json())
@@ -36,6 +39,7 @@ function ConcertArchives({ musicLibrary }){
                 />
     })
 
+    // Function passed down to handle state after a Fetch
     function handleConcertPatch(data){
         const filtered_arr = [...concertPrograms.filter(concert=>concert.id !== data.id)]
         filtered_arr.splice(data.id - 1, 0, data)
@@ -43,10 +47,30 @@ function ConcertArchives({ musicLibrary }){
     }
 
 
+    function handleSubmitNewEns(e){
+        e.preventDefault();
+        const newEnsemble = {name: newEns}
+        fetch("http://localhost:9292/ensembles", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(newEnsemble)
+        })
+        .then(res=>res.json())
+        .then(data=>setAllEnsembles([...allEnsembles, data]))
+        setNewEns("")
+        setAddNewEns(false)
+    }
 
     return(
         <div id="concert-archives">
-            <h4>THIS IS THE START OF CONCERT ARCHIVES</h4>
+            <h4>CONCERT ARCHIVES</h4>
+            <button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</button>
+            { addNewEns ? <form onSubmit={handleSubmitNewEns}>
+                <input type="text" value={newEns} onChange={e=>setNewEns(e.target.value)} placeholder="New Ensemble"/>
+                <input type="submit" value="Submit" />
+            </form> : null }
             {programsToDisplay}            
             <NewConcertForm />
         </div>

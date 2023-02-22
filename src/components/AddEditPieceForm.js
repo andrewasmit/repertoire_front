@@ -12,15 +12,6 @@ function AddEditPieceForm(props){
         }))
     }, [props.musicLibrary, props.genre])
 
-
-
-    function handleGenreSelect(e){
-        props.setGenre(e.target.value)
-        if(e.target.value === "*Create New Genre*"){
-            setCreateGenre(true)
-        }
-    }
-
 // Submit form for NEW piece
     function handleNewPieceSubmit(e){
         e.preventDefault();
@@ -121,9 +112,15 @@ function AddEditPieceForm(props){
             setCreateGenre(false)
         }
     }
-    
 
-    // Return JSX
+    function handleGenreSelect(e){
+        props.setGenre(e.target.value)
+        if(e.target.value === "*Create New Genre*"){
+            setCreateGenre(true)
+        }
+    }
+
+    // Return of JSX
     return(
     <div>
         <h2>Add A New Piece</h2>
