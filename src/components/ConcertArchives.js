@@ -7,6 +7,7 @@ function ConcertArchives({ musicLibrary }){
     const [concertPrograms, setConcertPrograms] = useState([]);
     const [allEnsembles, setAllEnsembles] = useState([]);
     const [newEns, setNewEns] = useState("");
+    const [gradeLevel, setGradeLevel] = useState("--Choose Grade Level--")
     const [addNewEns, setAddNewEns] = useState(false);
 
     // Fetching Concert Program data (ensembles and performances of pieces)
@@ -49,7 +50,7 @@ function ConcertArchives({ musicLibrary }){
 
     function handleSubmitNewEns(e){
         e.preventDefault();
-        const newEnsemble = {name: newEns}
+        const newEnsemble = {name: newEns, grade_level: gradeLevel}
         fetch("http://localhost:9292/ensembles", {
             method: "POST",
             headers: {
@@ -69,6 +70,12 @@ function ConcertArchives({ musicLibrary }){
             <button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</button>
             { addNewEns ? <form onSubmit={handleSubmitNewEns}>
                 <input type="text" value={newEns} onChange={e=>setNewEns(e.target.value)} placeholder="New Ensemble"/>
+                    <select value ={gradeLevel} onChange={e=>setGradeLevel(e.target.value)}>
+                        <option disabled>--Choose Grade Level--</option>
+                        <option>High School</option>
+                        <option>Junior High</option>
+                        <option>Beginner</option>
+                    </select>
                 <input type="submit" value="Submit" />
             </form> : null }
             {programsToDisplay}            
