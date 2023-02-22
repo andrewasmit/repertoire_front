@@ -73,6 +73,17 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setEditConcert(false);
     }
 
+    // function handleDeleteProgram(e){
+    //     e.preventDefault();
+    //     fetch(`http://localhost:9292/concerts/${id}`, {
+    //         method: "DELETE",
+    //     })
+    //     .then(res=>res.json())
+    //     .then(data=>handleConcertPatch(data))
+    //     setEditConcert(false);
+    // }
+    
+
 
     const dropdownOptionsForPiece = [...new Set(musicLibrary)].map(p=>{
         return <option id={p.id}>{p.title}</option>
@@ -98,11 +109,12 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             <div>
                 <h2>{concert_description}</h2>
                 <h3>{year}</h3>
+                {/* <button onClick={handleDeleteProgram}>Delete Concert Program</button> */}
             </div> 
             }
             <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
-            <button onClick={()=>setEditConcert(!editConcert)}>Edit Concert</button>
-            <button onClick={()=>setAddAPiece(true)}>Add Performance to Concert</button>
+            <button onClick={()=>setEditConcert(!editConcert)}>Edit Concert Details</button>
+            <button onClick={()=>setAddAPiece(true)}>Add Performance to Program</button>
             { addAPiece ?   <form onSubmit={handleAddNewPiece}>
                                 <select value={newPerformance} onChange={e=>setNewPerformance(e.target.value)}>
                                     <option disabled>--Select a Piece--</option>
@@ -113,7 +125,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                                     {dropdownOptionsForEnsembles}
                                 </select> 
                                 <input type="submit" value="Submit" id="add-performance-submit" />
-                                <button onClick={()=>setAddAPiece(false)}>Discard New Piece</button>
+                                <button onClick={()=>setAddAPiece(false)}>Discard Add Performance</button>
                             </form>  : null } 
             { showProgram ? performancesToDisplay : null }
         </div>
