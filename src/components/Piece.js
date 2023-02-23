@@ -52,6 +52,16 @@ function Piece(props){
         })
     }
 
+    function handleDeletePiece(e){
+        e.preventDefault();
+        fetch(`http://localhost:9292/library/${props.id}`, {
+            method: "DELETE",
+        })
+        .then(res=>res.json())
+        .then(data=>props.setMusicLibrary(data))
+    }
+
+    // Function passed up to Library to handle state properly
     function handleEditPieceClick(){
         props.handleEditPiece(props.id)
     }
@@ -73,6 +83,7 @@ function Piece(props){
             {props.reference_recording === null ? 
             null : <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a> }
             <button onClick={handleEditPieceClick}>Edit Piece</button>
+            <button onClick={handleDeletePiece}>Delete From Library</button>
         </div>
     )
 };

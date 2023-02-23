@@ -10,22 +10,21 @@ function ConcertArchives({ musicLibrary }){
     const [gradeLevel, setGradeLevel] = useState("--Choose Grade Level--")
     const [addNewEns, setAddNewEns] = useState(false);
 
-    // Fetching Concert Program data (ensembles and performances of pieces)
-    useEffect(()=>{
-        fetch("http://localhost:9292/concerts")
-        .then(res=>res.json())
-        .then(data=>setConcertPrograms(data))
-        .catch(err=>console.log(err));
-    }, [musicLibrary]);
-
     // Fetching ensembles
     useEffect(()=>{
         fetch("http://localhost:9292/ensembles")
         .then(res=>res.json())
         .then(data=>setAllEnsembles(data))
         .catch(err=>console.log(err));
-    }, [musicLibrary]);
-
+    }, []);
+    
+    // Fetching Concert Program data (ensembles and performances of pieces)
+    useEffect(()=>{
+        fetch("http://localhost:9292/concerts")
+        .then(res=>res.json())
+        .then(data=>setConcertPrograms(data))
+        .catch(err=>console.log(err));
+    }, []);
 
     const programsToDisplay = concertPrograms.map(c=>{
         return <ConcertProgram 

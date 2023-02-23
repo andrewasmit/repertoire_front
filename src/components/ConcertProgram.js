@@ -10,26 +10,33 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
     const [selectedEns, setSelectedEns] = useState("--Select an Ensemble--");
     const [description, setDescription] = useState(concert_description);
     const [concertYear, setConcertYear] = useState(year);
+    const [performancesToDisplay, setPerformancesToDisplay] = useState([]);
     const [dropdownOptionsForEnsembles, setDropdownOptionsForEnsembles] = useState(allEnsembles.map(p=>{
         return <option id={p.id}>{p.name}</option>
     }))
 
-    const performancesToDisplay = performances.map(performance=>{
-        const composer = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].composer
-        const arranger = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].arranger
-        const title = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].title
-        const ensemble = allEnsembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
+    console.log("In ConcertProgram: => Ensembles", allEnsembles)
+    // console.log("In ConcertProgram: => MusicLibrary", musicLibrary)
 
-        return <Performance 
-                    composer={composer}
-                    arranger={arranger}
-                    title={title}
-                    ensemble={ensemble}
-                    id={performance.id}
-                    key={performance.id}
-                    handleConcertPatch={handleConcertPatch}
-                />
-    }) 
+    useEffect(()=>{
+        if(performances !== [] && allEnsembles !== []){
+        setPerformancesToDisplay( performances.map(performance=>{
+            const composer = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].composer
+            const arranger = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].arranger
+            const title = musicLibrary.filter(piece=>piece.id === performance.piece_id)[0].title
+            const ensemble = allEnsembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
+    
+            return <Performance 
+                        composer={composer}
+                        arranger={arranger}
+                        title={title}
+                        ensemble={ensemble}
+                        id={performance.id}
+                        key={performance.id}
+                        handleConcertPatch={handleConcertPatch}
+                    />
+        }) ) }
+    }, [musicLibrary]);  
 
     
 // Fetch for Adding a new Piece
