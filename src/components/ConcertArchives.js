@@ -9,6 +9,9 @@ function ConcertArchives({ musicLibrary }){
     const [newEns, setNewEns] = useState("");
     const [gradeLevel, setGradeLevel] = useState("--Choose Grade Level--")
     const [addNewEns, setAddNewEns] = useState(false);
+    const [concertDescription, setConcertDescription] = useState("");
+    const [year, setYear] = useState(null);
+    const [addNewConcert, setAddNewConcert] = useState(false);
 
     // Fetching ensembles
     useEffect(()=>{
@@ -17,7 +20,7 @@ function ConcertArchives({ musicLibrary }){
         .then(data=>setAllEnsembles(data))
         .catch(err=>console.log(err));
     }, []);
-    
+
     // Fetching Concert Program data (ensembles and performances of pieces)
     useEffect(()=>{
         fetch("http://localhost:9292/concerts")
@@ -35,6 +38,7 @@ function ConcertArchives({ musicLibrary }){
                     id={c.id}
                     key={c.id}
                     musicLibrary={musicLibrary}
+                    concertPrograms={concertPrograms}
                     setConcertPrograms={setConcertPrograms}
                     handleConcertPatch={handleConcertPatch}
                 />
@@ -64,10 +68,34 @@ function ConcertArchives({ musicLibrary }){
         setAddNewEns(false)
     }
 
+    function handleSubmitNewConcert(e){
+        e.preventDefault();
+        const newConcert = {concert_description: concertDescription, year: year}
+        fetch("http://localhost:9292/concerts", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(newConcert)
+        })
+        .then(res=>res.json())
+        .then(data=>setConcertPrograms([...concertPrograms, data]))
+        setConcertDescription("")
+        setAddNewEns(false)
+    }
+
     return(
         <div id="concert-archives">
             <h4>CONCERT ARCHIVES</h4>
+            <button onClick={()=>setAddNewConcert(!addNewConcert)}>{addNewEns ? "Discard New Concert" : "Add New Concert" }</button>
             <button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</button>
+            {/* Toggle Form for submitting New Concert */}
+            { addNewConcert ? <form onSubmit={handleSubmitNewConcert}>
+                <input type="text" value={concertDescription} onChange={e=>setConcertDescription(e.target.value)} placeholder="New Concert Title"/>
+                <input type ="text" value={year} onChange={e=>setYear(e.target.value)} placeholder="Year" />
+                <input type="submit" value="Submit" />
+            </form> : null }
+            {/* Toggle Form for submitting New Ensemble */}
             { addNewEns ? <form onSubmit={handleSubmitNewEns}>
                 <input type="text" value={newEns} onChange={e=>setNewEns(e.target.value)} placeholder="New Ensemble"/>
                     <select value ={gradeLevel} onChange={e=>setGradeLevel(e.target.value)}>

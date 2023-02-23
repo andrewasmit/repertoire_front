@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
 
-function ConcertProgram({ id, concert_description, year, allEnsembles, performances, musicLibrary, setConcertPrograms, handleConcertPatch }){
+function ConcertProgram({ 
+            id, 
+            concert_description, 
+            concertPrograms, 
+            year, 
+            allEnsembles, 
+            performances, 
+            musicLibrary, 
+            setConcertPrograms, 
+            handleConcertPatch 
+        }){
 
     const [showProgram, setShowProgram] = useState(false);
     const [addAPiece, setAddAPiece] = useState(false);
@@ -36,7 +46,7 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
                         handleConcertPatch={handleConcertPatch}
                     />
         }) ) }
-    }, [musicLibrary]);  
+    }, [musicLibrary, concertPrograms]);  
 
     
 // Fetch for Adding a new Piece

@@ -16,7 +16,7 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
-    // console.log("In MAIN: => MusicLibrary", musicLibrary)
+    console.log("In MAIN: => MusicLibrary", musicLibrary)
 
 
     // Return of JSX
