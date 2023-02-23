@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Piece from "./Piece";
 import AddEditPieceForm from "./AddEditPieceForm";
+import { Button, Typography } from "@mui/material";
 
 function Library({ musicLibrary, setMusicLibrary }){
     const [title, setTitle] = useState("")
@@ -72,6 +73,8 @@ function handleEditPiece(id){
 
     return(
         <div  id ="library">
+            <Typography variant="h4" component="h3">Music Library</Typography>
+            <Button variant="outlined" size="small" onClick={()=>console.log("Add Form should Pop Up")}>Add New Piece</Button>
             {piecesToDisplay}
             <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 

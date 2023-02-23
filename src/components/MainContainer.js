@@ -3,6 +3,10 @@ import Library from "./Library";
 import ConcertArchives from "./ConcertArchives";
 import Home from "./Home";
 import { Switch, Route } from 'react-router-dom';
+// Material UI
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 function MainContainer(){
 
@@ -20,7 +24,7 @@ function MainContainer(){
     // Return of JSX
     return(
         <div id="main-container">
-            <h3>This is the Main Container.</h3>
+        <Container maxWidth="lg">
         <Switch>
             <Route exact path="/">
                 <Home />
@@ -31,10 +35,11 @@ function MainContainer(){
             <Route exact path="/concerts">
                 <ConcertArchives musicLibrary={ musicLibrary }/>
             </Route>
-            <Route path = "*"> 
+            <Route path = "*">
                 <h2>Error 404: Page Not Found</h2>
             </Route>
         </Switch>
+        </Container>
         </div>
     )
 };

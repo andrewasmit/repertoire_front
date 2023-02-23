@@ -1,19 +1,24 @@
 import React, { useState } from "react";
+import { Typography, Button, Link } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+
 
 function Piece(props){
-
     const [showAddNote, setShowAddNote] = useState(false);
     const [newNote, setNewNote] = useState("");
 
     const notesToDisplay = props.notes.map(n=>{
         if(n.note !== undefined){
             return <div>
-                        <p>{n.note}</p>
-                        <button id={n.id} onClick={handleDeleteNote}>x</button>
+                        <Typography variant="body2" component="p">{n.note}</Typography>
+                        {/* <Button variant="outlined"id={n.id} onClick={handleDeleteNote}>x</Button> */}
+                        <IconButton aria-label="delete" size="small" id={n.id} onClick={handleDeleteNote}>
+                            <DeleteIcon fontSize="inherit" />
+                        </IconButton>
                     </div>
         }
     });
-
 
     function handleAddNote(e){
         e.preventDefault();
@@ -70,20 +75,22 @@ function Piece(props){
     // Return of JSX
     return(
         <div className="library-card">
-            <h4>"{props.title}"</h4>
-            <h5>{props.composer}</h5>
-            { props.arranger === null ? null : <h6>Arr: {props.arranger}</h6> }
-            <p>Difficulty: {props.difficultyToString(props.difficulty)}</p>
-            <p>Genre: {props.genre === "--Select Genre--" ? null : props.genre}</p> 
-            <p>Number of Players: {props.number_of_players}</p> 
-            { props.notes.length === 0 ? null : <h4>Notes: </h4> }
+            <Typography variant="h5" component="h4">"{props.title}"</Typography>
+            <Typography variant="subtitle1" component="h5">{props.composer}</Typography>
+            { props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
+        
+            <Typography variant="body2" component="p">Difficulty: {props.difficultyToString(props.difficulty)}</Typography>
+            <Typography variant="body2" component="p">Genre: {props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
+            <Typography variant="body2" component="p">Number of Players: {props.number_of_players}</Typography> 
+            { props.notes.length === 0 ? null : <Typography variant="subtitle2" component="h4">Notes: </Typography> }
             {notesToDisplay}
             {showAddNote ? <form onSubmit={handleAddNote}><input type="text" value={newNote} onChange={e=>setNewNote(e.target.value)} placeholder="Add new note"/><input type="submit" value="Submit"/></form> : null}
-            <button onClick={()=>setShowAddNote(!showAddNote)}>Add Note!</button>
+            <Button variant="contained" onClick={()=>setShowAddNote(!showAddNote)}>Add Note!</Button>
             {props.reference_recording === null ? 
-            null : <a href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</a> }
-            <button onClick={handleEditPieceClick}>Edit Piece</button>
-            <button onClick={handleDeletePiece}>Delete From Library</button>
+            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
+            <Button variant="contained" onClick={handleEditPieceClick}>Edit Piece</Button>
+            {/* <Button variant="outlined" onClick={handleDeletePiece}>Delete From Library</Button> */}
+            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleDeletePiece}> Delete From Library</Button>
         </div>
     )
 };

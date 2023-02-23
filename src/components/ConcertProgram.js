@@ -25,7 +25,6 @@ function ConcertProgram({
         return <option id={p.id}>{p.name}</option>
     }))
 
-
     useEffect(()=>{
         if(performances !== [] && allEnsembles !== []){
         setPerformancesToDisplay( performances.map(performance=>{

@@ -1,4 +1,15 @@
 import React, { useState, useEffect } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Typography } from "@mui/material";
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+
 
 function AddEditPieceForm(props){
 
@@ -123,57 +134,95 @@ function AddEditPieceForm(props){
     // Return of JSX
     return(
     <div>
-        <h2>Add A New Piece</h2>
-        <form onSubmit={ props.editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }>
+        <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
+        <Box
+            component="form"
+            sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={ props.editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }
+        >
             {/* Title */}
-            <label>
-                <input value={ props.title } onChange={e=>props.setTitle(e.target.value)}placeholder="Title" type="text" name="title" />
-            </label>
+            <TextField
+                id="outlined-controlled"
+                label="Title"
+                value={props.title}
+                onChange={e=>props.setTitle(e.target.value)}
+            />
             {/* Composer */}
-            <label>
-                <input value={ props.composer } onChange={e=>props.setComposer(e.target.value)}placeholder="Composer" type="text" name="composer" />
-            </label>
+            <TextField
+                id="outlined-controlled"
+                label="Composer"
+                value={props.composer}
+                onChange={e=>props.setComposer(e.target.value)}
+            />
             {/* Arranger - OPTIONAL */}
-            { props.showArr ? <label>
-                <input value={ props.arranger } onChange={e=>props.setArranger(e.target.value)}placeholder="Arranger" type="text" name="arranger" />
-            </label> : null }
+            { props.showArr ? <TextField
+                id="outlined-controlled"
+                label="Arranger"
+                value={props.arranger}
+                onChange={e=>props.setArranger(e.target.value)}
+            /> : null }
             {/* Difficulty */}
-            <label>
-                <select value={props.difficulty}onChange={e=>props.setDifficulty(e.target.value)} name="difficulty">
-                    <option disabled >--Select Difficulty--</option>
-                    <option>1 - Easy</option>
-                    <option>2 - Med-Easy</option>
-                    <option>3 - Medium</option>
-                    <option>4 - Med-Advanced</option>
-                    <option>5 - Advanced</option>
-                </select>
-            </label>
+            <FormControl fullWidth>
+                <InputLabel id="difficulty-dropdown">Difficulty</InputLabel>
+                <Select
+                    labelId="difficulty-dropdown-label"
+                    id="difficulty-dropdown"
+                    value={props.difficulty}
+                    label="Difficulty"
+                    onChange={e=>props.setDifficulty(e.target.value)}
+                >
+                    <MenuItem disabled value={null}>--Select Difficulty--</MenuItem>
+                    <MenuItem value={1}>1 - Easy</MenuItem>
+                    <MenuItem value={2}>2 - Med-Easy</MenuItem>
+                    <MenuItem value={3}>3 - Medium</MenuItem>
+                    <MenuItem value={4}>4 - Med-Advanced</MenuItem>
+                    <MenuItem value={5}>5 - Advanced</MenuItem>
+                </Select>
+                </FormControl>
+
             {/* # of Players */}
-            <label>
-                <select value={props.numPlayers}onChange={e=>props.setNumPlayers(e.target.value)} name="numPlayers">
-                    <option disabled >--Select Number of Players--</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12+</option>
-                </select>
-            </label>
+            <FormControl fullWidth>
+                <InputLabel id="numPlayers-dropdown">Number of Players</InputLabel>
+                <Select
+                    labelId="numPlayers-dropdown-label"
+                    id="numPlayers-dropdown"
+                    value={props.numPlayers}
+                    label="# of Players"
+                    onChange={e=>props.setNumPlayers(e.target.value)}
+                >
+                    <MenuItem disabled value={null}>--Select Number of Players--</MenuItem>
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                    <MenuItem value={7}>7</MenuItem>
+                    <MenuItem value={8}>8</MenuItem>
+                    <MenuItem value={9}>9</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={11}>11</MenuItem>
+                    <MenuItem value={12}>12+</MenuItem>
+                </Select>
+                </FormControl>
             {/* Refence Recording - OPTIONAL */}
-            { props.showRefRecord ? <label>
-                <input value={ props.refRecord } onChange={e=>props.setRefRecord(e.target.value)}placeholder="Link to Reference Recording" type="text" name="reference recording" />
-            </label> : null }
+            { props. showRefRecord ? <TextField
+                id="outlined-controlled"
+                label="Reference Recording"
+                value={props.refRecord}
+                onChange={e=>props.setRefRecord(e.target.value)}
+            /> : null }
             {/* Notes - OPTIONAL */}
-            { props.showNotes ? <label>
-                <input value={ props.notes } onChange={e=>props.setNotes(e.target.value)}placeholder="Notes" type="text" name="notes" />
-            </label> : null }
+            { props. showNotes ? <TextField
+                id="outlined-controlled"
+                label="Notes"
+                value={props.Notes}
+                onChange={e=>props.setNotes(e.target.value)}
+            /> : null }
             {/* Genre Dropdown Menu */}
             <label>
             { createGenre ? <input type="text" placeholder="Enter New Genre" value={ createGenre ? null : props.genre} onChange={e=>props.setGenre(e.target.value)}/> 
@@ -185,10 +234,18 @@ function AddEditPieceForm(props){
             </label>
 
             {/* Buttons to include Optional Inputs */}
-            <label>
+            {/* <label>
                 <input type="checkbox" onChange={()=>props.setShowArr(!props.showArr)}checked={props.showArr}/>
                 Include arranger
-            </label>
+            </label> */}
+            <Checkbox
+                label="Include Arranger"
+                checked={props.showArr}
+                onChange={()=>props.setShowArr(!props.showArr)}
+                inputProps={{ 'aria-label': 'controlled' }}
+            />
+            
+
             <label>
                 <input type="checkbox" onChange={()=>props.setShowRefRecord(!props.showRefRecord)}checked={props.showRefRecord}/>
                 Include reference recording
@@ -198,7 +255,8 @@ function AddEditPieceForm(props){
                 Include notes about the piece
             </label>
             <input type="submit" value="Submit" id="new-piece-submit" />
-        </form>
+        {/* </form> */}
+        </Box>
     </div>
     )
 };
