@@ -36,6 +36,7 @@ function ConcertArchives({ musicLibrary }){
                     id={c.id}
                     key={c.id}
                     musicLibrary={musicLibrary}
+                    setConcertPrograms={setConcertPrograms}
                     handleConcertPatch={handleConcertPatch}
                 />
     })

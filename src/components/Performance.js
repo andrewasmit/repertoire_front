@@ -5,7 +5,7 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
 
     function handleDeletePerformanceClick(e){
         e.preventDefault();
-        fetch(`http://localhost:9292/concerts/${id}`, {
+        fetch(`http://localhost:9292/concerts/performances/${id}`, {
             method: "DELETE"
         })
         .then(res=>res.json())

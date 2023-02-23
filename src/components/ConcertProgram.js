@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
 
-function ConcertProgram({ id, concert_description, year, allEnsembles, performances, musicLibrary, handleConcertPatch }){
+function ConcertProgram({ id, concert_description, year, allEnsembles, performances, musicLibrary, setConcertPrograms, handleConcertPatch }){
 
     const [showProgram, setShowProgram] = useState(false);
     const [addAPiece, setAddAPiece] = useState(false);
@@ -73,15 +73,15 @@ function ConcertProgram({ id, concert_description, year, allEnsembles, performan
         setEditConcert(false);
     }
 
-    // function handleDeleteProgram(e){
-    //     e.preventDefault();
-    //     fetch(`http://localhost:9292/concerts/${id}`, {
-    //         method: "DELETE",
-    //     })
-    //     .then(res=>res.json())
-    //     .then(data=>handleConcertPatch(data))
-    //     setEditConcert(false);
-    // }
+    function handleDeleteProgram(e){
+        e.preventDefault();
+        fetch(`http://localhost:9292/concerts/${id}`, {
+            method: "DELETE",
+        })
+        .then(res=>res.json())
+        .then(data=>setConcertPrograms(data))
+        setEditConcert(false);
+    }
     
 
 
@@ -109,7 +109,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             <div>
                 <h2>{concert_description}</h2>
                 <h3>{year}</h3>
-                {/* <button onClick={handleDeleteProgram}>Delete Concert Program</button> */}
+                <button onClick={handleDeleteProgram}>Delete Concert Program</button>
             </div> 
             }
             <button onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances"}</button>
