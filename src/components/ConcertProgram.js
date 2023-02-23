@@ -25,8 +25,6 @@ function ConcertProgram({
         return <option id={p.id}>{p.name}</option>
     }))
 
-    console.log("In ConcertProgram: => Ensembles", allEnsembles)
-    // console.log("In ConcertProgram: => MusicLibrary", musicLibrary)
 
     useEffect(()=>{
         if(performances !== [] && allEnsembles !== []){
@@ -46,7 +44,7 @@ function ConcertProgram({
                         handleConcertPatch={handleConcertPatch}
                     />
         }) ) }
-    }, [musicLibrary, concertPrograms]);  
+    }, [musicLibrary, concertPrograms, allEnsembles, performances, handleConcertPatch]);  
 
     
 // Fetch for Adding a new Piece
