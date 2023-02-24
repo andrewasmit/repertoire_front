@@ -9,7 +9,6 @@ function NavBar(){
     const history = useHistory();
 
     function handleChange(e){
-        e.preventDefault()
         setPage(e.target.value)
         history.push(e.target.value)
     }

@@ -6,8 +6,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from "@mui/material/Switch";
+import FormGroup from "@mui/material/FormGroup";
+import Fab from '@mui/material/Fab';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 
 
@@ -19,7 +22,7 @@ function AddEditPieceForm(props){
 
     useEffect(()=>{ 
         setGenreDropdownOptions([...new Set(genreDropdownOptions)].map(genre=>{
-            return <option key={genre}>{genre}</option>
+            return <MenuItem value={genre}>{genre}</MenuItem>
         }))
     }, [props.musicLibrary, props.genre])
 
@@ -30,7 +33,7 @@ function AddEditPieceForm(props){
             title: props.title,
             composer: props.composer,
             arranger: props.arranger,
-            difficulty: parseInt(props.difficulty.split('').shift()),
+            difficulty: parseInt(props.difficulty),
             number_of_players: parseInt(props.numPlayers),
             genre: props.genre,
             reference_recording: props.refRecord,
@@ -46,29 +49,10 @@ function AddEditPieceForm(props){
         })
         .then(res=>res.json())
         .then(data=>props.setMusicLibrary([...props.musicLibrary, data]))
-        // Resetting the form after submitting
-        if(props.showArr===true){
-            props.setShowArr(false)
-        }
-        if(props.showNotes===true){
-            props.setShowNotes(false)
-        }
-        if(props.showRefRecord===true){
-            props.setShowRefRecord(false)
-        }
-        if(props.editPiece===true){
-            props.setEditPiece(false)
-        }if(createGenre===true){
+        props.resetForm()
+        if(createGenre===true){
             setCreateGenre(false)
         }
-        props.setTitle("")
-        props.setComposer("")
-        props.setArranger(null)
-        props.setNotes(null)
-        props.setGenre("--Select Genre--")
-        props.setDifficulty("--Select Difficulty--")
-        props.setNumPlayers("--Select Number of Players--")
-        props.setRefRecord(null)
     }
 
 // Submit form for EDIT piece
@@ -98,38 +82,13 @@ function AddEditPieceForm(props){
             filtered_arr.splice(props.editId - 1, 0, data )
             return props.setMusicLibrary(filtered_arr)
         })
-        // Resetting the form after submitting
-        props.setEditPiece(false)
-        props.setEditId(null)
-        props.setTitle("")
-        props.setComposer("")
-        props.setArranger(null)
-        props.setNotes(null)
-        props.setGenre("--Select Genre--")
-        props.setDifficulty("--Select Difficulty--")
-        props.setNumPlayers("--Select Number of Players--")
-        props.setRefRecord(null)
-        if(props.showArr===true){
-            props.setShowArr(false)
-        }
-        if(props.showNotes===true){
-            props.setShowNotes(false)
-        }
-        if(props.showRefRecord===true){
-            props.setShowRefRecord(false)
-        }if(props.editPiece===true){
-            props.setEditPiece(false)
-        }if(createGenre===true){
+        props.resetForm()
+        if(createGenre===true){
             setCreateGenre(false)
         }
     }
 
-    function handleGenreSelect(e){
-        props.setGenre(e.target.value)
-        if(e.target.value === "*Create New Genre*"){
-            setCreateGenre(true)
-        }
-    }
+
 
     // Return of JSX
     return(
@@ -151,6 +110,7 @@ function AddEditPieceForm(props){
                 value={props.title}
                 onChange={e=>props.setTitle(e.target.value)}
             />
+
             {/* Composer */}
             <TextField
                 id="outlined-controlled"
@@ -158,6 +118,7 @@ function AddEditPieceForm(props){
                 value={props.composer}
                 onChange={e=>props.setComposer(e.target.value)}
             />
+
             {/* Arranger - OPTIONAL */}
             { props.showArr ? <TextField
                 id="outlined-controlled"
@@ -165,6 +126,7 @@ function AddEditPieceForm(props){
                 value={props.arranger}
                 onChange={e=>props.setArranger(e.target.value)}
             /> : null }
+
             {/* Difficulty */}
             <FormControl fullWidth>
                 <InputLabel id="difficulty-dropdown">Difficulty</InputLabel>
@@ -183,6 +145,27 @@ function AddEditPieceForm(props){
                     <MenuItem value={5}>5 - Advanced</MenuItem>
                 </Select>
                 </FormControl>
+
+            {/* Genre Dropdown Menu */}
+            { createGenre ? <TextField
+                id="outlined-controlled"
+                label="Create Genre"
+                value={ createGenre ? null : props.composer }
+                onChange={e=>props.setGenre(e.target.value)}            
+            /> 
+            : <FormControl fullWidth>
+                <InputLabel id="genre-dropdown">Genre</InputLabel>
+                <Select
+                    labelId="genre-dropdown-label"
+                    id="genre-dropdown"
+                    value={props.genre}
+                    label="Genre"
+                    onChange={e=>props.setGenre(e.target.value)}
+                >
+                    <MenuItem disabled value={null}>--Select Genre--</MenuItem>
+                    {genreDropdownOptions}
+                </Select>
+                </FormControl> }
 
             {/* # of Players */}
             <FormControl fullWidth>
@@ -209,13 +192,15 @@ function AddEditPieceForm(props){
                     <MenuItem value={12}>12+</MenuItem>
                 </Select>
                 </FormControl>
+
             {/* Refence Recording - OPTIONAL */}
             { props.showRefRecord ? <TextField
                 id="outlined-controlled"
-                label="Reference Recording"
+                label="Link to Recording"
                 value={props.refRecord}
                 onChange={e=>props.setRefRecord(e.target.value)}
             /> : null }
+
             {/* Notes - OPTIONAL */}
             { props.showNotes ? <TextField
                 id="outlined-controlled"
@@ -223,39 +208,18 @@ function AddEditPieceForm(props){
                 value={props.Notes}
                 onChange={e=>props.setNotes(e.target.value)}
             /> : null }
-            {/* Genre Dropdown Menu */}
-            <label>
-            { createGenre ? <input type="text" placeholder="Enter New Genre" value={ createGenre ? null : props.genre} onChange={e=>props.setGenre(e.target.value)}/> 
-                : <select value={props.genre}onChange={handleGenreSelect} name="genre">
-                    <option disabled >--Select Genre--</option>
-                    <option>*Create New Genre*</option>
-                    {genreDropdownOptions}
-                </select> }
-            </label>
 
-            {/* Buttons to include Optional Inputs */}
-            {/* <label>
-                <input type="checkbox" onChange={()=>props.setShowArr(!props.showArr)}checked={props.showArr}/>
-                Include arranger
-            </label> */}
-            <Checkbox
-                label="Include Arranger"
-                checked={props.showArr}
-                onChange={()=>props.setShowArr(!props.showArr)}
-                inputProps={{ 'aria-label': 'controlled' }}
-            />
-            
 
-            <label>
-                <input type="checkbox" onChange={()=>props.setShowRefRecord(!props.showRefRecord)}checked={props.showRefRecord}/>
-                Include reference recording
-            </label>
-            <label>
-                <input type="checkbox" onChange={()=>props.setShowNotes(!props.showNotes)} checked={props.showNotes}/>
-                Include notes about the piece
-            </label>
-            <input type="submit" value="Submit" id="new-piece-submit" />
-        {/* </form> */}
+            {/* Toggle to include Optional Inputs */}
+            <FormGroup>
+                <FormControlLabel control={<Switch checked={props.showArr} onChange={()=>props.setShowArr(!props.showArr)}/>} label="Include Arranger" />
+                <FormControlLabel control={<Switch onChange={()=>props.setShowRefRecord(!props.showRefRecord)} checked={props.showRefRecord}/>} label="Include Reference Recording" />
+                <FormControlLabel control={<Switch onChange={()=>props.setShowNotes(!props.showNotes)} checked={props.showNotes}/>} label="Include Notes About Piece" />
+                <FormControlLabel control={<Switch onChange={()=>setCreateGenre(!createGenre)} checked={createGenre}/>} label="Create New Genre" />
+            </FormGroup>
+            <Fab variant="extended" type="submit">
+                <NavigationIcon sx={{ mr: 1 }} />Submit
+            </Fab>
         </Box>
     </div>
     )

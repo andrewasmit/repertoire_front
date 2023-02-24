@@ -6,12 +6,12 @@ import { Button, Typography } from "@mui/material";
 function Library({ musicLibrary, setMusicLibrary }){
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
-    const [arranger, setArranger] = useState(null)
-    const [notes, setNotes] = useState(null)
-    const [genre, setGenre] = useState("--Select Genre--")
-    const [difficulty, setDifficulty] = useState("--Select Difficulty--")
-    const [numPlayers, setNumPlayers] = useState("--Select Number of Players--")
-    const [refRecord, setRefRecord] = useState(null)
+    const [arranger, setArranger] = useState("")
+    const [notes, setNotes] = useState("")
+    const [genre, setGenre] = useState("")
+    const [difficulty, setDifficulty] = useState("")
+    const [numPlayers, setNumPlayers] = useState("")
+    const [refRecord, setRefRecord] = useState("")
 
     const [showArr, setShowArr] = useState(false)
     const [showNotes, setShowNotes] = useState(false)
@@ -19,6 +19,7 @@ function Library({ musicLibrary, setMusicLibrary }){
     const [editPiece, setEditPiece] = useState(false);
     const [editId, setEditId] = useState("")
 
+    
     const piecesToDisplay = musicLibrary.map(p=>{
         return <Piece
                     title={p.title}
@@ -70,11 +71,35 @@ function handleEditPiece(id){
     }
 }
 
+function resetForm(){
+    setEditPiece(false)
+    setEditId(null)
+    setTitle("")
+    setComposer("")
+    setArranger(null)
+    setNotes(null)
+    setGenre("")
+    setDifficulty("")
+    setNumPlayers("")
+    setRefRecord(null)
+    if(showArr===true){
+        setShowArr(false)
+    }
+    if(showNotes===true){
+        setShowNotes(false)
+    }
+    if(showRefRecord===true){
+        setShowRefRecord(false)
+    }if(editPiece===true){
+        setEditPiece(false)
+    }
+}
+
 
     return(
         <div  id ="library">
             <Typography variant="h4" component="h3">Music Library</Typography>
-            <Button variant="outlined" size="small" onClick={()=>console.log("Add Form should Pop Up")}>Add New Piece</Button>
+            <Button variant="outlined" size="small" onClick={()=>setEditPiece(false)}>Add New Piece</Button>
             {piecesToDisplay}
             <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 
@@ -105,6 +130,7 @@ function handleEditPiece(id){
                 setShowNotes={setShowNotes}
                 showRefRecord={showRefRecord}
                 setShowRefRecord={setShowRefRecord}
+                resetForm={resetForm}
             />
         </div>
     )
