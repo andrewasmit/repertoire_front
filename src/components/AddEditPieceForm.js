@@ -210,14 +210,14 @@ function AddEditPieceForm(props){
                 </Select>
                 </FormControl>
             {/* Refence Recording - OPTIONAL */}
-            { props. showRefRecord ? <TextField
+            { props.showRefRecord ? <TextField
                 id="outlined-controlled"
                 label="Reference Recording"
                 value={props.refRecord}
                 onChange={e=>props.setRefRecord(e.target.value)}
             /> : null }
             {/* Notes - OPTIONAL */}
-            { props. showNotes ? <TextField
+            { props.showNotes ? <TextField
                 id="outlined-controlled"
                 label="Notes"
                 value={props.Notes}
