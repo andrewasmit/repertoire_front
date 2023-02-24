@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Piece from "./Piece";
 import AddEditPieceForm from "./AddEditPieceForm";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 function Library({ musicLibrary, setMusicLibrary }){
     const [title, setTitle] = useState("")
@@ -21,22 +21,24 @@ function Library({ musicLibrary, setMusicLibrary }){
 
     
     const piecesToDisplay = musicLibrary.map(p=>{
-        return <Piece
-                    title={p.title}
-                    composer={p.composer}
-                    arranger={p.arranger}
-                    difficulty={p.difficulty}
-                    number_of_players={p.number_of_players}
-                    reference_recording={p.reference_recording}
-                    genre={p.genre}
-                    notes={p.notes}
-                    id={p.id}
-                    key={p.id}
-                    setMusicLibrary={setMusicLibrary}
-                    musicLibrary={musicLibrary}
-                    handleEditPiece={handleEditPiece}
-                    difficultyToString={difficultyToString}
-                />
+        return <Grid item xs={4}>
+                    <Piece
+                        title={p.title}
+                        composer={p.composer}
+                        arranger={p.arranger}
+                        difficulty={p.difficulty}
+                        number_of_players={p.number_of_players}
+                        reference_recording={p.reference_recording}
+                        genre={p.genre}
+                        notes={p.notes}
+                        id={p.id}
+                        key={p.id}
+                        setMusicLibrary={setMusicLibrary}
+                        musicLibrary={musicLibrary}
+                        handleEditPiece={handleEditPiece}
+                        difficultyToString={difficultyToString}
+                    />
+                </Grid>
     })
 
     function difficultyToString(int){
@@ -105,7 +107,9 @@ function handleAddPieceClick(){
         <div  id ="library">
             <Typography variant="h4" component="h3">Music Library</Typography>
             <Button variant="outlined" size="small" onClick={handleAddPieceClick}>Add New Piece</Button>
-            {piecesToDisplay}
+            <Grid container spacing={4}>
+                {piecesToDisplay}
+            </Grid>
             <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 
                 setMusicLibrary={ setMusicLibrary } 

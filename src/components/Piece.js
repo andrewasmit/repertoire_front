@@ -73,7 +73,7 @@ function Piece(props){
     
     // Return of JSX
     return(
-        <div className="library-card">
+        <Paper elevation={4} className="library-card">
             <Typography variant="h5" component="h4">"{props.title}"</Typography>
             <Typography variant="subtitle1" component="h5">{props.composer}</Typography>
             { props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
@@ -89,7 +89,7 @@ function Piece(props){
             null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
             <Button variant="contained" onClick={handleEditPieceClick}>Edit Piece</Button>
             <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleDeletePiece}> Delete From Library</Button>
-        </div>
+        </Paper>
     )
 };
 

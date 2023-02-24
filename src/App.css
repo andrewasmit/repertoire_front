@@ -1,4 +1,11 @@
-.App {
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto";
+}
+
+
+/* .App {
   text-align: center;
 }
 
@@ -41,4 +48,4 @@
 }
 .performance{
   border: .5px solid green;
-}
+} */
