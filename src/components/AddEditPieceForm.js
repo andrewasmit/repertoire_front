@@ -11,7 +11,7 @@ import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
-
+import Button from "@mui/material/Button";
 
 
 function AddEditPieceForm(props){
@@ -24,7 +24,8 @@ function AddEditPieceForm(props){
         setGenreDropdownOptions([...new Set(genreDropdownOptions)].map(genre=>{
             return <MenuItem value={genre}>{genre}</MenuItem>
         }))
-    }, [props.musicLibrary, props.genre])
+    },[])
+
 
 // Submit form for NEW piece
     function handleNewPieceSubmit(e){
@@ -88,8 +89,6 @@ function AddEditPieceForm(props){
         }
     }
 
-
-
     // Return of JSX
     return(
     <div>
@@ -150,7 +149,7 @@ function AddEditPieceForm(props){
             { createGenre ? <TextField
                 id="outlined-controlled"
                 label="Create Genre"
-                value={ createGenre ? null : props.composer }
+                value={ createGenre ? null : props.genre }
                 onChange={e=>props.setGenre(e.target.value)}            
             /> 
             : <FormControl fullWidth>
@@ -217,6 +216,7 @@ function AddEditPieceForm(props){
                 <FormControlLabel control={<Switch onChange={()=>props.setShowNotes(!props.showNotes)} checked={props.showNotes}/>} label="Include Notes About Piece" />
                 <FormControlLabel control={<Switch onChange={()=>setCreateGenre(!createGenre)} checked={createGenre}/>} label="Create New Genre" />
             </FormGroup>
+            <Button onClick={props.resetForm} variant="outlined">Reset Form</Button>
             <Fab variant="extended" type="submit">
                 <NavigationIcon sx={{ mr: 1 }} />Submit
             </Fab>

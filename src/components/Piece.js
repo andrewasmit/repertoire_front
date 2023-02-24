@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Typography, Button, Link } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 function Piece(props){
     const [showAddNote, setShowAddNote] = useState(false);
@@ -12,7 +13,6 @@ function Piece(props){
         if(n.note !== undefined){
             return <div>
                         <Typography variant="body2" component="p">{n.note}</Typography>
-                        {/* <Button variant="outlined"id={n.id} onClick={handleDeleteNote}>x</Button> */}
                         <IconButton aria-label="delete" size="small" id={n.id} onClick={handleDeleteNote}>
                             <DeleteIcon fontSize="inherit" />
                         </IconButton>
@@ -70,14 +70,13 @@ function Piece(props){
     function handleEditPieceClick(){
         props.handleEditPiece(props.id)
     }
-
     
     // Return of JSX
     return(
         <div className="library-card">
             <Typography variant="h5" component="h4">"{props.title}"</Typography>
             <Typography variant="subtitle1" component="h5">{props.composer}</Typography>
-            { props.arranger === "" ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
+            { props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
         
             <Typography variant="body2" component="p">Difficulty: {props.difficultyToString(props.difficulty)}</Typography>
             <Typography variant="body2" component="p">Genre: {props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
@@ -89,7 +88,6 @@ function Piece(props){
             {props.reference_recording === null ? 
             null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
             <Button variant="contained" onClick={handleEditPieceClick}>Edit Piece</Button>
-            {/* <Button variant="outlined" onClick={handleDeletePiece}>Delete From Library</Button> */}
             <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleDeletePiece}> Delete From Library</Button>
         </div>
     )

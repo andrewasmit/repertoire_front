@@ -95,11 +95,16 @@ function resetForm(){
     }
 }
 
+function handleAddPieceClick(){
+    resetForm();
+    // Trigger Pop-Up
+}
+
 
     return(
         <div  id ="library">
             <Typography variant="h4" component="h3">Music Library</Typography>
-            <Button variant="outlined" size="small" onClick={()=>setEditPiece(false)}>Add New Piece</Button>
+            <Button variant="outlined" size="small" onClick={handleAddPieceClick}>Add New Piece</Button>
             {piecesToDisplay}
             <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 
