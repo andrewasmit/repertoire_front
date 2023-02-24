@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
@@ -13,12 +13,6 @@ function NavBar(){
         setPage(e.target.value)
         history.push(e.target.value)
     }
-    // function handleChange(e){
-    //     e.preventDefault();
-    //     console.log(e.target.value);
-    // }
-
-    console.log(page);
 
     return(
         <div id="navbar">
@@ -32,11 +26,6 @@ function NavBar(){
                 <ToggleButton value="/">Home</ToggleButton>
                 <ToggleButton value="/library">Music Library</ToggleButton>
                 <ToggleButton value="/concerts">Concert Archives</ToggleButton>
-            {/* <ButtonGroup variant="text" aria-label="text button group">
-                <Button href="/">Home</Button>
-                <Button href="/library">Music Library</Button>
-                <Button href="/concerts">Concert Archives</Button>
-            </ButtonGroup> */}
             </ToggleButtonGroup>
         </div>
     )
