@@ -4,48 +4,14 @@
   font-family: "Roboto";
 }
 
-
-/* .App {
-  text-align: center;
-}
-
-#main-container{
-  border: 3px dotted blue;
-}
-
-#home-page{
-  border: 2px solid red;
+#concert-archives{
+  padding: 5rem;
 }
 
 #library{
-  border: 2px solid red;
-}
-
-#concert-archives{
-  border: 2px solid red;
-}
-
-#footer{
-  border: 1px solid grey;
-}
-
-#navbar{
-  border: 2px solid green;
-}
-
-#header{
-  border:2px solid goldenrod;
-}
-.library-card{
-  border: 3px solid purple;
-  margin: 5px
+  padding: 5rem;
 }
 
 .concert-program{
-  border: 3px solid purple;
-  margin: 5px
-
+  padding: 2rem;
 }
-.performance{
-  border: .5px solid green;
-} */

@@ -1,9 +1,8 @@
-import { Typography, Button, Box, TextField, Fab, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Grid, Typography, Button, Box, TextField, Fab, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Container } from "@mui/system";
 // import Fab from "@mui/material";
 import React, { useState, useEffect } from "react";
 import ConcertProgram from "./ConcertProgram";
-import NewConcertForm from "./NewConcertForm";
 import NavigationIcon from '@mui/icons-material/Navigation';
 
 
@@ -88,12 +87,31 @@ function ConcertArchives({ musicLibrary }){
         setAddNewEns(false)
     }
 
+    function handleNewConcertClick(){
+        if(addNewEns === true){
+            setAddNewEns(false)
+        }
+        setAddNewConcert(!addNewConcert); 
+        setConcertDescription(""); 
+        setYear("")
+    }
+
+    function handleNewEnsembleClick(){
+        if(addNewConcert === true){
+            setAddNewConcert(false)
+        }
+        setAddNewEns(!addNewEns); 
+        setYear(""); 
+        setNewEns("")
+    }
+    
+
     // Return of JSX
     return(
-        <Container id="concert-archives">
+        <Grid container spacing={4} id="concert-archives">
             <Typography variant="h4" component="h3">CONCERT ARCHIVES</Typography>
-            <Button onClick={()=>setAddNewConcert(!addNewConcert)}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
-            <Button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
+            <Button onClick={handleNewConcertClick}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
+            <Button onClick={handleNewEnsembleClick}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
 
             {/* Toggle Form for submitting New Concert */}
             { addNewConcert ? <Box
@@ -155,8 +173,7 @@ function ConcertArchives({ musicLibrary }){
             </Box> : null }
             
             {programsToDisplay}            
-            <NewConcertForm />
-        </Container>
+        </Grid>
     )
 };
 

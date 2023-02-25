@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
 
 // Material UI
-import { TextField, Box, Fab, Container, Typography, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Grid, TextField, Box, Fab, Container, Typography, Button, FormControl, InputLabel, Select, MenuItem, Paper } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -24,7 +24,7 @@ function ConcertProgram({
             handleConcertPatch 
         }){
 
-    const [showProgram, setShowProgram] = useState(true);
+    const [showProgram, setShowProgram] = useState(false);
     const [addAPiece, setAddAPiece] = useState(false);
     const [editConcert, setEditConcert] = useState(false);
     const [newPerformance, setNewPerformance] = useState("--Select a Piece--");
@@ -127,8 +127,8 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 
     // Return of JSX
     return(
-        <div className="concert-program">
-        <Container>
+        <Grid item xs={6} className="concert-program">
+            <Paper elevation={24}>
             { editConcert ?
             <Box
                 component="form"
@@ -160,67 +160,69 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             }
 
             {/* Edit Buttons */}
-            <Button variant="contained" onClick={()=>setEditConcert(!editConcert)}>Edit Concert Details</Button>
+            <Button variant="contained" onClick={()=>setEditConcert(!editConcert)}>{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
             <Button variant="outlined" onClick={handleDeleteProgram}>Delete Concert Program</Button>
             <br></br>
+            {/* <Typography variant="subtitle1" component="p">{ showProgram ? "Hide Performances" : "Show Performances"}</Typography> */}
             <Fab color="primary" aria-label="add" onClick={()=>setShowProgram(!showProgram)}>
                 { showProgram ? <ExpandLess /> : <ExpandMore />}
-            </Fab>
+            </Fab>            
+            {/* <Typography variant="subtitle1" component="p">Add Performance to Concert</Typography> */}
             <Fab color="primary" aria-label="add" onClick={()=>setAddAPiece(true)}>
                 <AddIcon />
             </Fab>
             
             {/* Toggle form to Add a Piece */}
             { addAPiece ?   
-                        <Container>
-                            <Box
-                                component="form"
-                                sx={{
-                                    '& .MuiTextField-root': { m: 1, width: '25ch' },
-                                }}
-                                noValidate                    
-                                autoComplete="off"
-                                onSubmit={handleAddNewPiece}
-                            >
-                            <FormControl fullWidth>
-                                <InputLabel id="new-performance-dropdown">Select Piece to Add to Program</InputLabel>
-                                <Select
-                                    labelId="new-performance-dropdown"
-                                    id="new-performance-dropdown"
-                                    value={newPerformance}
-                                    label="Select a Piece"
-                                    onChange={e=>setNewPerformance(e.target.value)}
-                                >
-                                    <MenuItem value={null} disabled>--Select a Piece--</MenuItem>
-                                    {dropdownOptionsForPiece}
-                                </Select>
-                            </FormControl>
-                            <FormControl fullWidth>
-                                <InputLabel id="new-performance-ens-dropdown">Select Performing Ensemble</InputLabel>
-                                <Select
-                                    labelId="new-performance-ens-dropdown"
-                                    id="new-performance-ens-dropdown"
-                                    value={selectedEns}
-                                    label="Select a Piece"
-                                    onChange={e=>setSelectedEns(e.target.value)}
-                                >
-                                    <MenuItem value={null} disabled>--Select an Ensemble--</MenuItem>
-                                    {dropdownOptionsForEnsembles}
-                                </Select>
-                            </FormControl>
-                                <Fab onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">
-                                    <RestartAlt />
-                                </Fab>
-                                <Fab typw="submit" variant="extended" size="medium" color="primary" aria-label="add">
-                                    <NavigationIcon sx={{ mr: 1 }} />
-                                    Submit
-                                </Fab>
-                            </Box>
-                        </Container>  : null } 
+            <Container>
+                <Box
+                    component="form"
+                    sx={{
+                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    }}
+                    noValidate                    
+                    autoComplete="off"
+                    onSubmit={handleAddNewPiece}
+                >
+                <FormControl fullWidth>
+                    <InputLabel id="new-performance-dropdown">Select Piece to Add to Program</InputLabel>
+                    <Select
+                        labelId="new-performance-dropdown"
+                        id="new-performance-dropdown"
+                        value={newPerformance}
+                        label="Select a Piece"
+                        onChange={e=>setNewPerformance(e.target.value)}
+                    >
+                        <MenuItem value={null} disabled>--Select a Piece--</MenuItem>
+                        {dropdownOptionsForPiece}
+                    </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                    <InputLabel id="new-performance-ens-dropdown">Select Performing Ensemble</InputLabel>
+                    <Select
+                        labelId="new-performance-ens-dropdown"
+                        id="new-performance-ens-dropdown"
+                        value={selectedEns}
+                        label="Select a Piece"
+                        onChange={e=>setSelectedEns(e.target.value)}
+                    >
+                        <MenuItem value={null} disabled>--Select an Ensemble--</MenuItem>
+                        {dropdownOptionsForEnsembles}
+                    </Select>
+                </FormControl>
+                    <Fab onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">
+                        <RestartAlt />
+                    </Fab>
+                    <Fab typw="submit" variant="extended" size="medium" color="primary" aria-label="add">
+                        <NavigationIcon sx={{ mr: 1 }} />
+                        Submit
+                    </Fab>
+                </Box>
+            </Container>  : null } 
 
             { showProgram ? performancesToDisplay : null }
-            </Container>
-        </div>
+            </Paper>
+        </Grid>
     )
 };
 

@@ -21,7 +21,7 @@ function Library({ musicLibrary, setMusicLibrary }){
 
     
     const piecesToDisplay = musicLibrary.map(p=>{
-        return <Grid item xs={4}>
+            return  <Grid item xs={4} >
                     <Piece
                         title={p.title}
                         composer={p.composer}
@@ -38,7 +38,7 @@ function Library({ musicLibrary, setMusicLibrary }){
                         handleEditPiece={handleEditPiece}
                         difficultyToString={difficultyToString}
                     />
-                </Grid>
+                    </Grid>
     })
 
     function difficultyToString(int){
@@ -107,7 +107,7 @@ function handleAddPieceClick(){
         <div  id ="library">
             <Typography variant="h4" component="h3">Music Library</Typography>
             <Button variant="outlined" size="small" onClick={handleAddPieceClick}>Add New Piece</Button>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
                 {piecesToDisplay}
             </Grid>
             <AddEditPieceForm 
