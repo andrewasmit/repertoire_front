@@ -213,7 +213,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     <Fab onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">
                         <RestartAlt />
                     </Fab>
-                    <Fab typw="submit" variant="extended" size="medium" color="primary" aria-label="add">
+                    <Fab type="submit" variant="extended" size="medium" color="primary" aria-label="add">
                         <NavigationIcon sx={{ mr: 1 }} />
                         Submit
                     </Fab>

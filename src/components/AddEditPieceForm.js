@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Typography } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -92,7 +92,10 @@ function AddEditPieceForm(props){
     // Return of JSX
     return(
     <div>
-        <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
+    <Grid container spacing={2}>
+        <Grid item xs={12}>
+            <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
+        </Grid>
         <Box
             component="form"
             sx={{
@@ -103,30 +106,36 @@ function AddEditPieceForm(props){
             onSubmit={ props.editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }
         >
             {/* Title */}
+        <Grid item xs={6} sm={4}> 
             <TextField
                 id="outlined-controlled"
                 label="Title"
                 value={props.title}
                 onChange={e=>props.setTitle(e.target.value)}
             />
+        </Grid>
 
             {/* Composer */}
+        <Grid xs={6} sm={4}>
             <TextField
                 id="outlined-controlled"
                 label="Composer"
                 value={props.composer}
                 onChange={e=>props.setComposer(e.target.value)}
             />
-
+        </Grid>
             {/* Arranger - OPTIONAL */}
+        <Grid item xs={4}>
             { props.showArr ? <TextField
                 id="outlined-controlled"
                 label="Arranger"
                 value={props.arranger}
                 onChange={e=>props.setArranger(e.target.value)}
             /> : null }
+        </Grid>
 
             {/* Difficulty */}
+        <Grid item xs={4}>
             <FormControl fullWidth>
                 <InputLabel id="difficulty-dropdown">Difficulty</InputLabel>
                 <Select
@@ -144,8 +153,10 @@ function AddEditPieceForm(props){
                     <MenuItem value={5}>5 - Advanced</MenuItem>
                 </Select>
                 </FormControl>
+        </Grid>
 
             {/* Genre Dropdown Menu */}
+        <Grid item xs={4}>
             { createGenre ? <TextField
                 id="outlined-controlled"
                 label="Create Genre"
@@ -165,8 +176,10 @@ function AddEditPieceForm(props){
                     {genreDropdownOptions}
                 </Select>
                 </FormControl> }
+        </Grid>
 
             {/* # of Players */}
+        <Grid item xs={4} >
             <FormControl fullWidth>
                 <InputLabel id="numPlayers-dropdown">Number of Players</InputLabel>
                 <Select
@@ -191,22 +204,23 @@ function AddEditPieceForm(props){
                     <MenuItem value={12}>12+</MenuItem>
                 </Select>
                 </FormControl>
+        </Grid>
 
             {/* Refence Recording - OPTIONAL */}
-            { props.showRefRecord ? <TextField
+            { props.showRefRecord ? <Grid item xs={6}><TextField
                 id="outlined-controlled"
                 label="Link to Recording"
                 value={props.refRecord}
                 onChange={e=>props.setRefRecord(e.target.value)}
-            /> : null }
+            /> </Grid>: null }
 
             {/* Notes - OPTIONAL */}
-            { props.showNotes ? <TextField
+            { props.showNotes ? <Grid item xs={6}><TextField
                 id="outlined-controlled"
                 label="Notes"
                 value={props.Notes}
                 onChange={e=>props.setNotes(e.target.value)}
-            /> : null }
+            /> </Grid> : null }
 
 
             {/* Toggle to include Optional Inputs */}
@@ -221,6 +235,7 @@ function AddEditPieceForm(props){
                 <NavigationIcon sx={{ mr: 1 }} />Submit
             </Fab>
         </Box>
+    </Grid>
     </div>
     )
 };
