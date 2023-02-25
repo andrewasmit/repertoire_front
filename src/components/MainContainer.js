@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 // import CssBaseline from '@mui/material/CssBaseline';
 // import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { Typography } from "@mui/material";
 
 function MainContainer(){
 
@@ -36,7 +37,7 @@ function MainContainer(){
                 <ConcertArchives musicLibrary={ musicLibrary }/>
             </Route>
             <Route path = "*">
-                <h2>Error 404: Page Not Found</h2>
+                <Typography variant="h4" component="h3">Error 404: Page Not Found</Typography>
             </Route>
         </Switch>
         </Container>
