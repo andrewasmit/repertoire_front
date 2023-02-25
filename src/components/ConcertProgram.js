@@ -8,6 +8,8 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { RestartAlt } from "@mui/icons-material"
+import IconButton from '@mui/material/IconButton';
+
 
 
 function ConcertProgram({ 
@@ -123,7 +125,6 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 }, [allEnsembles]) 
 
 
-
     // Return of JSX
     return(
         <div className="concert-program">
@@ -150,7 +151,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     value={concertYear}
                     onChange={e=>setConcertYear(e.target.value)}
                 />
-                <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Submit</Fab>
+                <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Submit Changes</Fab>
             </Box> :
             <Container >
                 <Typography variant="h4" component="h3">{concert_description}</Typography>

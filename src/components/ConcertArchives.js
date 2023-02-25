@@ -1,6 +1,11 @@
+import { Typography, Button, Box, TextField, Fab, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Container } from "@mui/system";
+// import Fab from "@mui/material";
 import React, { useState, useEffect } from "react";
 import ConcertProgram from "./ConcertProgram";
 import NewConcertForm from "./NewConcertForm";
+import NavigationIcon from '@mui/icons-material/Navigation';
+
 
 function ConcertArchives({ musicLibrary }){
 
@@ -51,7 +56,6 @@ function ConcertArchives({ musicLibrary }){
         return setConcertPrograms(filtered_arr) 
     }
 
-
     function handleSubmitNewEns(e){
         e.preventDefault();
         const newEnsemble = {name: newEns, grade_level: gradeLevel}
@@ -84,31 +88,75 @@ function ConcertArchives({ musicLibrary }){
         setAddNewEns(false)
     }
 
+    // Return of JSX
     return(
-        <div id="concert-archives">
-            <h4>CONCERT ARCHIVES</h4>
-            <button onClick={()=>setAddNewConcert(!addNewConcert)}>{addNewEns ? "Discard New Concert" : "Add New Concert" }</button>
-            <button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</button>
+        <Container id="concert-archives">
+            <Typography variant="h4" component="h3">CONCERT ARCHIVES</Typography>
+            <Button onClick={()=>setAddNewConcert(!addNewConcert)}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
+            <Button onClick={()=>setAddNewEns(!addNewEns)}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
+
             {/* Toggle Form for submitting New Concert */}
-            { addNewConcert ? <form onSubmit={handleSubmitNewConcert}>
-                <input type="text" value={concertDescription} onChange={e=>setConcertDescription(e.target.value)} placeholder="New Concert Title"/>
-                <input type ="text" value={year} onChange={e=>setYear(e.target.value)} placeholder="Year" />
-                <input type="submit" value="Submit" />
-            </form> : null }
-            {/* Toggle Form for submitting New Ensemble */}
-            { addNewEns ? <form onSubmit={handleSubmitNewEns}>
-                <input type="text" value={newEns} onChange={e=>setNewEns(e.target.value)} placeholder="New Ensemble"/>
-                    <select value ={gradeLevel} onChange={e=>setGradeLevel(e.target.value)}>
-                        <option disabled>--Choose Grade Level--</option>
-                        <option>High School</option>
-                        <option>Junior High</option>
-                        <option>Beginner</option>
-                    </select>
-                <input type="submit" value="Submit" />
-            </form> : null }
+            { addNewConcert ? <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                }}
+                noValidate                    
+                autoComplete="off"
+                onSubmit={handleSubmitNewConcert}
+            >
+                <TextField
+                    id="new-concert-name"
+                    label="New Concert Description"
+                    value={concertDescription}
+                    onChange={e=>setConcertDescription(e.target.value)}
+                />
+                <TextField
+                    id="new-concert-year"
+                    label="Year"
+                    value={year}
+                    onChange={e=>setYear(e.target.value)}
+                />
+                <Fab type="submit" variant="extended"><NavigationIcon />Submit New Concert</Fab>
+            </Box> : null }
+
+        {/* Toggle Form for submitting New Ensemble */}
+            { addNewEns ? <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                }}
+                noValidate                    
+                autoComplete="off"
+                onSubmit={handleSubmitNewEns}
+            >
+                <TextField
+                    id="new-concert-name"
+                    label="New Ensemble "
+                    value={newEns}
+                    onChange={e=>setNewEns(e.target.value)}
+                />
+                <FormControl fullWidth>
+                    <InputLabel id="new-performance-ens-dropdown">Select Performing Ensemble</InputLabel>
+                    <Select
+                        labelId="new-ens-grade-dropdown"
+                        id="new-ens-grade-dropdown"
+                        value={gradeLevel}
+                        label="--Choose Grade Level--"
+                        onChange={e=>setGradeLevel(e.target.value)}
+                    >
+                        <MenuItem value={null} disabled>--Choose Grade Level--</MenuItem>
+                        <MenuItem value={"High School"} >High School</MenuItem>
+                        <MenuItem value={"Junior High"} >Junior High</MenuItem>
+                        <MenuItem value={"Beginner"} >Beginner</MenuItem>
+                    </Select>
+                </FormControl>
+                <Fab type="submit" variant="extended"><NavigationIcon />Submit New Ensemble</Fab>
+            </Box> : null }
+            
             {programsToDisplay}            
             <NewConcertForm />
-        </div>
+        </Container>
     )
 };
 
