@@ -3,6 +3,10 @@
   padding: 0;
   font-family: "Roboto";
 }
+#main-container{
+  background-color: #eaf4f4;
+  margin: 0;
+}
 
 #concert-archives{
   padding: 5rem;
@@ -18,7 +22,11 @@
 
 #header{
   text-align: center;
+  margin: 0;
+  background-color: #f0e6ef;
+  padding: 5px;
 }
+
 
 .piece{
   padding: 2rem;
@@ -30,6 +38,13 @@
 
 .library-card{
   text-align: center;
+}
+
+.performance-card{
+  text-align: center;
+}
+.performance-card:nth-of-type(2n){
+  background: whitesmoke;
 }
 
 .card-title{
@@ -82,8 +97,3 @@
   margin: 15px;
 }
 
-.submit-performance{
-  /* justify-content: right; */
-  width: 50%;
-  margin-left: 25px;
-}

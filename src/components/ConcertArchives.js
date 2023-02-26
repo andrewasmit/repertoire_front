@@ -45,6 +45,7 @@ function ConcertArchives({ musicLibrary }){
                     concertPrograms={concertPrograms}
                     setConcertPrograms={setConcertPrograms}
                     handleConcertPatch={handleConcertPatch}
+                    className="concert-program"
                 />
     })
 

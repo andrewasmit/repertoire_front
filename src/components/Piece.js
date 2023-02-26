@@ -99,7 +99,7 @@ function Piece(props){
             null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }            
             <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
                 <Button  onClick={()=>setShowNotes(!showNotes)}>{showNotes ? "Hide Notes" : "Show Notes" }</Button>
-                <Button  onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard New Note" : "Add Note" }</Button>
+                <Button  onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard Note" : "Add Note" }</Button>
             </ButtonGroup>
             { showNotes ? <Typography variant="subtitle2" component="h4">Notes: </Typography> : null }
             { showNotes ? notesToDisplay : null }

@@ -1,5 +1,5 @@
 import { Delete, RemoveCircleOutline } from "@mui/icons-material";
-import { Paper, Typography, Fab } from "@mui/material";
+import { Paper, Typography, Fab, Button } from "@mui/material";
 import React from "react";
 
 function Performance({ composer, arranger, title, ensemble, id, handleConcertPatch }){
@@ -16,14 +16,15 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
 
     // Return of JSX
     return(
-        <Paper elevation={4}>
-            <Typography variant="h5" component="h3">{title}</Typography>
-            <Typography variant="subtitle1" component="h5">{composer}</Typography>
-            {arranger === null || undefined ? null : <Typography variant="subtitle2" component="h6">Arr: {arranger}</Typography>}
+        <Paper elevation={4} className="performance-card">
+            <Typography variant="h5" component="h3" className="card-title">{title}</Typography>
+            <Typography variant="subtitle1" component="h5" className="card-composer">{composer}</Typography>
+            {arranger === null || undefined ? null : <Typography variant="subtitle2" component="h6" className="card-body">Arr: {arranger}</Typography>}
             <Typography variant="body2" component="p">{ensemble}</Typography>
-            <Fab onClick={handleDeletePerformanceClick} size="small" color="primary" aria-label="add">
+            <Button variant="text" onClick={handleDeletePerformanceClick} size="small">Remove Performance</Button>
+            {/* <Fab onClick={handleDeletePerformanceClick} size="small" color="primary" aria-label="add">
                 <RemoveCircleOutline />
-            </Fab>
+            </Fab> */}
         </Paper>
     )
 };
