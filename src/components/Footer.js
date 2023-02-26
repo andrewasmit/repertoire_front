@@ -13,11 +13,11 @@ function Copyright() {
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
-      <Link color="inherit" target="_blank" href="https://github.com/andrewasmit">
-        GitHub
-      </Link>{' '}
       <Link color="inherit" target="_blank" href="https://medium.com/@andrewasmit">
-        Blog
+          Blog
+      </Link>{' '}
+      <Link color="inherit" target="_blank" href="https://github.com/andrewasmit">
+          GitHub
       </Link>{' '}
     </Typography>
   );

@@ -53,7 +53,7 @@ function ConcertProgram({
     }, [musicLibrary, concertPrograms, allEnsembles, performances, handleConcertPatch]);  
 
     
-// Fetch for Adding a new Piece
+// Fetch for Adding a new performance to the program
     function handleAddNewPiece(e){
         e.preventDefault();
         const pieceToAdd = {
@@ -70,9 +70,10 @@ function ConcertProgram({
         })
         .then(res=>res.json())
         .then(data=>handleConcertPatch(data))
-        setNewPerformance("--Select a Piece--")
-        setSelectedEns("--Select an Ensemble--")
-        setAddAPiece(false)
+        setNewPerformance("--Select a Piece--");
+        setSelectedEns("--Select an Ensemble--");
+        setAddAPiece(false);
+        setShowProgram(true);
     }
 
     // Fetch for editing the Concert Program details (name/year)
@@ -159,7 +160,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             {/* Show Performance / Add Piece Buttons */}
             <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
                 <Button  onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances" }</Button>
-                <Button  onClick={()=>setAddAPiece(!addAPiece)}>{addAPiece ? "Discard New Piece" : "Add Piece" }</Button>
+                <Button  onClick={()=>setAddAPiece(!addAPiece)}>{addAPiece ? "Discard New Performance" : "Add Performance" }</Button>
             </ButtonGroup>
             
             {/* Toggle form to Add a Piece */}
@@ -175,7 +176,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     onSubmit={handleAddNewPiece}
                 >
                 <FormControl fullWidth>
-                    <InputLabel>Select Piece to Add to Program</InputLabel>
+                    <InputLabel>Select Piece to Perform on Program</InputLabel>
                     <Select
                         labelId="new-performance-dropdown"
                         id="new-performance-dropdown"
@@ -209,6 +210,10 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                 </Box>
             </Container>  : null } 
             { showProgram ? performancesToDisplay : null }
+            { showProgram && performancesToDisplay.length === 0 ? 
+                <Typography variant="body2" component="p" className="performance-card">There are currently no performances for <strong>{concert_description}</strong></Typography> 
+                    : null }
+
             {/* Edit / Delete Buttons */}
             <Button variant="contained" onClick={()=>setEditConcert(!editConcert)} className="card-button-group">{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
             <Button variant="outlined" onClick={handleDeleteProgram}className="card-button-group">Delete Concert Program</Button>
