@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Fab, TextField, Typography, Button, Link, Grid } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/Delete';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import NavigationIcon from '@mui/icons-material/Navigation';
@@ -20,12 +21,10 @@ function Piece(props){
                             <Typography variant="body2" component="p">{n.note}</Typography>
                         </Grid>
                         <Grid item xs={2} id={n.id} >
-                            <IconButton aria-label="delete" size="small"  id={n.id} onClick={handleDeleteNote}>
-                                <DeleteIcon id={n.id} fontSize="inherit" />
-                            </IconButton>
+                            <Button id={n.id} variant="outlined" startIcon={<DeleteForeverIcon />} onClick={handleDeleteNote}></Button>
                         </Grid>
                     </div>
-        } else 
+        } else
         return  <div id={n.id}>
                     <Grid item xs ={12}>
                         <Typography variant="body2" component="p">No note for {props.title}</Typography>
@@ -59,18 +58,16 @@ function Piece(props){
     }
 
     function handleDeleteNote(e){
-        e.preventDefault();
-        console.log("Delete note w/ the note_id of: ", e.target.id)
-        console.log(e.target)
-        // fetch(`http://localhost:9292/library/notes/${e.target.id}`, {
-        //     method: "DELETE",
-        // })
-        // .then(res=>res.json())
-        // .then(data=>{
-        //     const filtered_arr = [...props.musicLibrary.filter(p=>p.id !== props.id)];
-        //     filtered_arr.splice(props.id - 1, 0, data )
-        //     return props.setMusicLibrary(filtered_arr) 
-        // })
+        e.preventDefault(); 
+        fetch(`http://localhost:9292/library/notes/${e.target.id}`, {
+            method: "DELETE",
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            const filtered_arr = [...props.musicLibrary.filter(p=>p.id !== props.id)];
+            filtered_arr.splice(props.id - 1, 0, data )
+            return props.setMusicLibrary(filtered_arr) 
+        })
     }
 
     function handleDeletePiece(e){
