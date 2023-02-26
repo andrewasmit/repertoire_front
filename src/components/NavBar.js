@@ -16,7 +16,6 @@ function NavBar(){
 
     return(
         <div id="navbar">
-            <Container>
                 <ToggleButtonGroup
                     color="primary"
                     value={page}
@@ -28,7 +27,6 @@ function NavBar(){
                     <ToggleButton value="/library">Music Library</ToggleButton>
                     <ToggleButton value="/concerts">Concert Archives</ToggleButton>
                 </ToggleButtonGroup>
-            </Container>
         </div>
     )
 }

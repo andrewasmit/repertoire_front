@@ -25,7 +25,6 @@ function MainContainer(){
     // Return of JSX
     return(
         <div id="main-container">
-        <Container maxWidth="lg">
         <Switch>
             <Route exact path="/">
                 <Home />
@@ -40,7 +39,6 @@ function MainContainer(){
                 <Typography variant="h4" component="h3">Error 404: Page Not Found</Typography>
             </Route>
         </Switch>
-        </Container>
         </div>
     )
 };

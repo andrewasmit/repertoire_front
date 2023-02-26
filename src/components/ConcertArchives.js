@@ -109,7 +109,7 @@ function ConcertArchives({ musicLibrary }){
     // Return of JSX
     return(
         <Grid container spacing={4} id="concert-archives">
-            <Typography variant="h4" component="h3">CONCERT ARCHIVES</Typography>
+            <Typography variant="h4" component="h3" className="page-header">CONCERT ARCHIVES</Typography>
             <Button onClick={handleNewConcertClick}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
             <Button onClick={handleNewEnsembleClick}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
 

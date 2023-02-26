@@ -105,7 +105,7 @@ function handleAddPieceClick(){
 
     return(
         <div  id ="library">
-            <Typography variant="h4" component="h3">Music Library</Typography>
+            <Typography variant="h4" component="h3" className="page-header">Music Library</Typography>
             <Button variant="outlined" size="small" onClick={handleAddPieceClick}>Add New Piece</Button>
             <Grid container spacing={2}>
                 {piecesToDisplay}

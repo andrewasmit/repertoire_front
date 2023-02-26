@@ -8,10 +8,33 @@
   padding: 5rem;
 }
 
+.concert-program{
+  padding: 2rem;
+}
+
 #library{
   padding: 5rem;
 }
 
-.concert-program{
+.piece{
   padding: 2rem;
+}
+.page-header{
+  padding-bottom: 1rem;
+}
+
+.library-card{
+  text-align: center;
+}
+
+.card-title{
+  padding:10px;
+  padding-bottom: 5px;
+}
+
+.card-composer{
+  padding-bottom:15px;
+}
+.card-body{
+  padding:5px
 }

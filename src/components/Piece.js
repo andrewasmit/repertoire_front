@@ -88,15 +88,15 @@ function Piece(props){
     return(
         <Grid container spacing={1} >
         <Paper elevation={4} className="library-card">
-            <Typography variant="h5" component="h4">"{props.title}"</Typography>
-            <Typography variant="subtitle1" component="h5">{props.composer}</Typography>
+            <Typography variant="h5" component="h4" className="card-title">"{props.title}"</Typography>
+            <Typography variant="subtitle1" component="h5" className="card-composer">{props.composer}</Typography>
             { props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
         
-            <Typography variant="body2" component="p">Difficulty: {props.difficultyToString(props.difficulty)}</Typography>
-            <Typography variant="body2" component="p">Genre: {props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
-            <Typography variant="body2" component="p">Number of Players: {props.number_of_players}</Typography> 
+            <Typography variant="body2" component="p" className="card-body"><strong>Difficulty: </strong>{props.difficultyToString(props.difficulty)}</Typography>
+            <Typography variant="body2" component="p" className="card-body"><strong>Genre: </strong>{props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
+            <Typography variant="body2" component="p" className="card-body"><strong>Number of Players: </strong>{props.number_of_players}</Typography> 
             {props.reference_recording === null ? 
-            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
+            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }
             <Typography variant="subtitle2" component="h4">Notes: </Typography>
             <Fab color="primary" aria-label="add" onClick={()=>setShowNotes(!showNotes)}>
                 { showNotes ? <ExpandLess /> : <ExpandMore />}
