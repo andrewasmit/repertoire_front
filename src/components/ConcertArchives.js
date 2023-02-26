@@ -1,4 +1,4 @@
-import { Grid, Typography, Button, Box, TextField, Fab, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Grid, Typography, Button, ButtonGroup, Box, TextField, Fab, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Container } from "@mui/system";
 // import Fab from "@mui/material";
 import React, { useState, useEffect } from "react";
@@ -82,9 +82,11 @@ function ConcertArchives({ musicLibrary }){
             body: JSON.stringify(newConcert)
         })
         .then(res=>res.json())
-        .then(data=>setConcertPrograms([...concertPrograms, data]))
+        .then(data=>setConcertPrograms(data))
         setConcertDescription("")
+        setYear(null)
         setAddNewEns(false)
+        setAddNewConcert(false)
     }
 
     function handleNewConcertClick(){
@@ -109,9 +111,16 @@ function ConcertArchives({ musicLibrary }){
     // Return of JSX
     return(
         <Grid container spacing={4} id="concert-archives">
-            <Typography variant="h4" component="h3" className="page-header">CONCERT ARCHIVES</Typography>
-            <Button onClick={handleNewConcertClick}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
-            <Button onClick={handleNewEnsembleClick}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
+            <Grid item xs={12} >
+                <Typography variant="h4" component="h3" className="page-header">CONCERT ARCHIVES</Typography>
+            </Grid>
+            <Grid item xs={12} >
+                <ButtonGroup className="button-group">
+                    <Button onClick={handleNewConcertClick}>{addNewConcert ? "Discard New Concert" : "Add New Concert" }</Button>
+                    <Button onClick={handleNewEnsembleClick}>{addNewEns ? "Discard New Ensemble" : "Add New Ensemble" }</Button>
+                </ButtonGroup>
+            </Grid>
+            
 
             {/* Toggle Form for submitting New Concert */}
             { addNewConcert ? <Box

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
 
 // Material UI
-import { Grid, TextField, Box, Fab, Container, Typography, Button, FormControl, InputLabel, Select, MenuItem, Paper } from "@mui/material";
+import { Grid, TextField, Box, Fab, Container, Typography, Button, ButtonGroup, FormControl, InputLabel, Select, MenuItem, Paper } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -127,8 +127,8 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 
     // Return of JSX
     return(
-        <Grid item xs={6} className="concert-program">
-            <Paper elevation={24}>
+        <Grid item xs={12} md={6}  className="concert-program">
+            <Paper elevation={4}>
             { editConcert ?
             <Box
                 component="form"
@@ -137,6 +137,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                 }}
                 noValidate                    
                 autoComplete="off"
+                className="new-program-form"
                 onSubmit={handleEditConcert}
             >
                 <TextField
@@ -144,7 +145,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     label="Concert Description"
                     value={description}
                     onChange={e=>setDescription(e.target.value)}
-                />
+                />  
                 <TextField
                     id="year-concert-update"
                     label="Year"
@@ -154,23 +155,16 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                 <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Submit Changes</Fab>
             </Box> :
             <Container >
-                <Typography variant="h4" component="h3">{concert_description}</Typography>
-                <Typography variant="h5" component="h4">{year}</Typography>
+                <Typography className="program-title" variant="h4" component="h3">{concert_description}</Typography>
+                <Typography className="program-year" variant="h5" component="h4">{year}</Typography>
             </Container> 
             }
 
-            {/* Edit Buttons */}
-            <Button variant="contained" onClick={()=>setEditConcert(!editConcert)}>{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
-            <Button variant="outlined" onClick={handleDeleteProgram}>Delete Concert Program</Button>
-            <br></br>
-            {/* <Typography variant="subtitle1" component="p">{ showProgram ? "Hide Performances" : "Show Performances"}</Typography> */}
-            <Fab color="primary" aria-label="add" onClick={()=>setShowProgram(!showProgram)}>
-                { showProgram ? <ExpandLess /> : <ExpandMore />}
-            </Fab>            
-            {/* <Typography variant="subtitle1" component="p">Add Performance to Concert</Typography> */}
-            <Fab color="primary" aria-label="add" onClick={()=>setAddAPiece(true)}>
-                <AddIcon />
-            </Fab>
+            {/* Show Performance / Add Piece Buttons */}
+            <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
+                <Button  onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances" }</Button>
+                <Button  onClick={()=>setAddAPiece(!addAPiece)}>{addAPiece ? "Discard New Piece" : "Add Piece" }</Button>
+            </ButtonGroup>
             
             {/* Toggle form to Add a Piece */}
             { addAPiece ?   
@@ -185,12 +179,13 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     onSubmit={handleAddNewPiece}
                 >
                 <FormControl fullWidth>
-                    <InputLabel id="new-performance-dropdown">Select Piece to Add to Program</InputLabel>
+                    <InputLabel>Select Piece to Add to Program</InputLabel>
                     <Select
                         labelId="new-performance-dropdown"
                         id="new-performance-dropdown"
                         value={newPerformance}
                         label="Select a Piece"
+                        className="new-performance-dropdown"
                         onChange={e=>setNewPerformance(e.target.value)}
                     >
                         <MenuItem value={null} disabled>--Select a Piece--</MenuItem>
@@ -204,25 +199,25 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                         id="new-performance-ens-dropdown"
                         value={selectedEns}
                         label="Select a Piece"
+                        className="new-performance-dropdown"
                         onChange={e=>setSelectedEns(e.target.value)}
                     >
                         <MenuItem value={null} disabled>--Select an Ensemble--</MenuItem>
                         {dropdownOptionsForEnsembles}
                     </Select>
                 </FormControl>
-                    <Fab onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">
-                        <RestartAlt />
-                    </Fab>
-                    <Fab type="submit" variant="extended" size="medium" color="primary" aria-label="add">
-                        <NavigationIcon sx={{ mr: 1 }} />
-                        Submit
-                    </Fab>
+                <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
+                    <Button onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">Reset Form</Button>
+                    <Button type="submit">Submit</Button>
+                </ButtonGroup>
                 </Box>
             </Container>  : null } 
-
             { showProgram ? performancesToDisplay : null }
-            </Paper>
-        </Grid>
+            {/* Edit / Delete Buttons */}
+            <Button variant="contained" onClick={()=>setEditConcert(!editConcert)} className="card-button-group">{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
+            <Button variant="outlined" onClick={handleDeleteProgram}className="card-button-group">Delete Concert Program</Button>
+        </Paper>
+    </Grid>
     )
 };
 

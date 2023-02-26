@@ -16,11 +16,16 @@
   padding: 5rem;
 }
 
+#header{
+  text-align: center;
+}
+
 .piece{
   padding: 2rem;
 }
 .page-header{
   padding-bottom: 1rem;
+  text-align: center;
 }
 
 .library-card{
@@ -37,4 +42,48 @@
 }
 .card-body{
   padding:5px
+}
+
+.card-button-group{
+  width: 50%;
+}
+
+.card-note:nth-of-type(2n){
+  background: whitesmoke;
+}
+
+.card-note{
+  padding: 2px;
+  margin: auto;
+}
+
+.card-delete-note{
+  padding: 2px;
+  margin: auto;
+}
+
+.button-group{
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.program-title{
+  text-align: center;
+  padding: 10px;
+}
+
+.program-year{
+  text-align: center;
+  padding: 10px;
+}
+
+.new-performance-dropdown{
+  margin: 15px;
+}
+
+.submit-performance{
+  /* justify-content: right; */
+  width: 50%;
+  margin-left: 25px;
 }

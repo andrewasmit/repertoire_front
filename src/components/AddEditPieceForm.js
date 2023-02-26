@@ -92,7 +92,7 @@ function AddEditPieceForm(props){
     // Return of JSX
     return(
     <div>
-    <Grid container spacing={2}>
+    <Grid container spacing={0}>
         <Grid item xs={12}>
             <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
         </Grid>
@@ -106,7 +106,7 @@ function AddEditPieceForm(props){
             onSubmit={ props.editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }
         >
             {/* Title */}
-        <Grid item xs={6} sm={4}> 
+        <Grid xs={12} md={6} xl={4}> 
             <TextField
                 id="outlined-controlled"
                 label="Title"
@@ -116,7 +116,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* Composer */}
-        <Grid xs={6} sm={4}>
+        <Grid xs={12} md={6} xl={4}>
             <TextField
                 id="outlined-controlled"
                 label="Composer"
@@ -125,7 +125,7 @@ function AddEditPieceForm(props){
             />
         </Grid>
             {/* Arranger - OPTIONAL */}
-        <Grid item xs={4}>
+        <Grid item xs={12} md={6} xl={4}>
             { props.showArr ? <TextField
                 id="outlined-controlled"
                 label="Arranger"
@@ -135,7 +135,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* Difficulty */}
-        <Grid item xs={4}>
+        <Grid item xs={12} md={6} xl={4}>
             <FormControl fullWidth>
                 <InputLabel id="difficulty-dropdown">Difficulty</InputLabel>
                 <Select
@@ -156,7 +156,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* Genre Dropdown Menu */}
-        <Grid item xs={4}>
+        <Grid item xs={12}>
             { createGenre ? <TextField
                 id="outlined-controlled"
                 label="Create Genre"
@@ -179,7 +179,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* # of Players */}
-        <Grid item xs={4} >
+        <Grid item xs={12} md={6} xl={4} >
             <FormControl fullWidth>
                 <InputLabel id="numPlayers-dropdown">Number of Players</InputLabel>
                 <Select
@@ -207,7 +207,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* Refence Recording - OPTIONAL */}
-            { props.showRefRecord ? <Grid item xs={6}><TextField
+            { props.showRefRecord ? <Grid item xs={12} md={6} xl={4}><TextField
                 id="outlined-controlled"
                 label="Link to Recording"
                 value={props.refRecord}
@@ -215,7 +215,7 @@ function AddEditPieceForm(props){
             /> </Grid>: null }
 
             {/* Notes - OPTIONAL */}
-            { props.showNotes ? <Grid item xs={6}><TextField
+            { props.showNotes ? <Grid item xs={12} md={6} xl={4}><TextField
                 id="outlined-controlled"
                 label="Notes"
                 value={props.Notes}

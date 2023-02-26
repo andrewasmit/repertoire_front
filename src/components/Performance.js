@@ -16,7 +16,7 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
 
     // Return of JSX
     return(
-        <Paper elevation={7}>
+        <Paper elevation={4}>
             <Typography variant="h5" component="h3">{title}</Typography>
             <Typography variant="subtitle1" component="h5">{composer}</Typography>
             {arranger === null || undefined ? null : <Typography variant="subtitle2" component="h6">Arr: {arranger}</Typography>}

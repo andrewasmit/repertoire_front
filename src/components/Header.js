@@ -11,9 +11,11 @@ import { Container, Typography } from "@mui/material";
 function Header (){
     return(
     <div id="header">
+        <Container>
             <Typography variant="h3" component="h2">Repertoire</Typography>
             <Typography variant="subtitle1" component="h4">A performance tracker and curriculum planner for Music Teachers</Typography>
             <NavBar />
+        </Container>
     </div>
     )
 };

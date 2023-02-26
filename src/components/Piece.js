@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Fab, TextField, Typography, Button, Link, Grid } from "@mui/material";
+import { Fab, TextField, Typography, Button, ButtonGroup, Link, Grid } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/Delete';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
@@ -16,23 +16,24 @@ function Piece(props){
 
     const notesToDisplay = props.notes.map(n=>{
         if(props.notes.length !== 0){
-            return <div id={n.id}>
-                        <Grid item xs ={10}>
+            return <div className="card-note">
+                    <Grid container spacing={1}>
+                        <Grid item xs={9}>
                             <Typography variant="body2" component="p">{n.note}</Typography>
                         </Grid>
-                        <Grid item xs={2} id={n.id} >
-                            <Button id={n.id} variant="outlined" startIcon={<DeleteForeverIcon />} onClick={handleDeleteNote}></Button>
+                        <Grid item xs={2} id={n.id} className="card-delete-note">
+                            <Button id={n.id} variant="outlined" size="small" onClick={handleDeleteNote}>x</Button>
                         </Grid>
+                    </Grid>
                     </div>
         } else
         return  <div id={n.id}>
-                    <Grid item xs ={12}>
+                    <Grid item xs={12}>
                         <Typography variant="body2" component="p">No note for {props.title}</Typography>
                     </Grid>
                 </div>
     });
 
-    // console.log(props.notes)
 
     function handleAddNote(e){
         e.preventDefault();
@@ -86,7 +87,6 @@ function Piece(props){
     
     // Return of JSX
     return(
-        <Grid container spacing={1} >
         <Paper elevation={4} className="library-card">
             <Typography variant="h5" component="h4" className="card-title">"{props.title}"</Typography>
             <Typography variant="subtitle1" component="h5" className="card-composer">{props.composer}</Typography>
@@ -96,12 +96,14 @@ function Piece(props){
             <Typography variant="body2" component="p" className="card-body"><strong>Genre: </strong>{props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
             <Typography variant="body2" component="p" className="card-body"><strong>Number of Players: </strong>{props.number_of_players}</Typography> 
             {props.reference_recording === null ? 
-            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }
-            <Typography variant="subtitle2" component="h4">Notes: </Typography>
-            <Fab color="primary" aria-label="add" onClick={()=>setShowNotes(!showNotes)}>
-                { showNotes ? <ExpandLess /> : <ExpandMore />}
-            </Fab>
+            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }            
+            <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
+                <Button  onClick={()=>setShowNotes(!showNotes)}>{showNotes ? "Hide Notes" : "Show Notes" }</Button>
+                <Button  onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard New Note" : "Add Note" }</Button>
+            </ButtonGroup>
+            { showNotes ? <Typography variant="subtitle2" component="h4">Notes: </Typography> : null }
             { showNotes ? notesToDisplay : null }
+            { showNotes && notesToDisplay.length === 0 ? <Typography variant="body2" component="p">Currently no notes for {props.title}</Typography> : null }
             {showAddNote ? <Box
                 component="form"
                 sx={{
@@ -119,11 +121,9 @@ function Piece(props){
                 />
                 <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Add Note!</Fab>
             </Box> : null }
-            <Button variant="contained" onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard New Note" : "Add Note" }</Button>
-            <Button variant="contained" onClick={handleEditPieceClick}>Edit Piece</Button>
-            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleDeletePiece}> Delete From Library</Button>
+            <Button size="small" variant="contained" onClick={handleEditPieceClick} className="card-button-group">Edit Piece</Button>
+            <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={handleDeletePiece}>Delete</Button>
         </Paper>
-        </Grid>
     )
 };
 
