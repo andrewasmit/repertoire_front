@@ -5,13 +5,16 @@ import IconButton from '@mui/material/IconButton';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 function Piece(props){
     const [showAddNote, setShowAddNote] = useState(false);
     const [newNote, setNewNote] = useState("");
+    const [showNotes, setShowNotes] = useState(false);
 
     const notesToDisplay = props.notes.map(n=>{
-        if(n.note !== undefined){
+        if(props.notes.length !== 0){
             return <div id={n.id}>
                         <Grid item xs ={10}>
                             <Typography variant="body2" component="p">{n.note}</Typography>
@@ -22,7 +25,12 @@ function Piece(props){
                             </IconButton>
                         </Grid>
                     </div>
-        }
+        } else 
+        return  <div id={n.id}>
+                    <Grid item xs ={12}>
+                        <Typography variant="body2" component="p">No note for {props.title}</Typography>
+                    </Grid>
+                </div>
     });
 
     // console.log(props.notes)
@@ -90,10 +98,13 @@ function Piece(props){
             <Typography variant="body2" component="p">Difficulty: {props.difficultyToString(props.difficulty)}</Typography>
             <Typography variant="body2" component="p">Genre: {props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
             <Typography variant="body2" component="p">Number of Players: {props.number_of_players}</Typography> 
-            { props.notes.length === 0 ? null : <Typography variant="subtitle2" component="h4">Notes: </Typography> }
-            {notesToDisplay}
-
-            {showAddNote ? <form onSubmit={handleAddNote}><input type="text" value={newNote} onChange={e=>setNewNote(e.target.value)} placeholder="Add new note"/><input type="submit" value="Submit"/></form> : null}
+            {props.reference_recording === null ? 
+            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
+            <Typography variant="subtitle2" component="h4">Notes: </Typography>
+            <Fab color="primary" aria-label="add" onClick={()=>setShowNotes(!showNotes)}>
+                { showNotes ? <ExpandLess /> : <ExpandMore />}
+            </Fab>
+            { showNotes ? notesToDisplay : null }
             {showAddNote ? <Box
                 component="form"
                 sx={{
@@ -111,10 +122,7 @@ function Piece(props){
                 />
                 <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Add Note!</Fab>
             </Box> : null }
-
-            <Button variant="contained" onClick={()=>setShowAddNote(!showAddNote)}>Add Note!</Button>
-            {props.reference_recording === null ? 
-            null : <Link href={props.reference_recording} target="_blank" rel="noreferrer">Reference Recording</Link> }
+            <Button variant="contained" onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard New Note" : "Add Note" }</Button>
             <Button variant="contained" onClick={handleEditPieceClick}>Edit Piece</Button>
             <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleDeletePiece}> Delete From Library</Button>
         </Paper>

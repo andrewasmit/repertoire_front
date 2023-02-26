@@ -21,7 +21,7 @@ function Library({ musicLibrary, setMusicLibrary }){
 
     
     const piecesToDisplay = musicLibrary.map(p=>{
-            return  <Grid item xs={4} >
+            return  <Grid item xs={12} sm={6} lg={4} xl={3}>
                     <Piece
                         title={p.title}
                         composer={p.composer}
