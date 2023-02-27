@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Notification from "./Notification";
+import Confirmation from "./Confirmation";
 import { Fab, TextField, Typography, Button, ButtonGroup, Link, Grid } from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/Delete';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -55,7 +57,9 @@ function Piece(props){
         })
         // Reset "Add Note!" button and input
         setShowAddNote(!showAddNote)
+        setShowNotes(true)
         setNewNote("")
+        props.handleNotify(`Note for "${props.title}" successfully added.`)
     }
 
     function handleDeleteNote(e){
@@ -69,10 +73,11 @@ function Piece(props){
             filtered_arr.splice(props.id - 1, 0, data )
             return props.setMusicLibrary(filtered_arr) 
         })
+        props.handleNotify(`Note for "${props.title}" successfully deleted.`, "error")
     }
 
-    function handleDeletePiece(e){
-        e.preventDefault();
+    function handleDeletePiece(){
+        // e.preventDefault();
         fetch(`http://localhost:9292/library/${props.id}`, {
             method: "DELETE",
         })
@@ -122,7 +127,12 @@ function Piece(props){
                 <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Add Note!</Fab>
             </Box> : null }
             <Button size="small" variant="contained" onClick={handleEditPieceClick} className="card-button-group">Edit Piece</Button>
-            <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={handleDeletePiece}>Delete</Button>
+            <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={props.handlePopUp} >Delete</Button>
+            <Notification notify={props.notify} setNotify={props.setNotify}/>
+            <Confirmation 
+                    confirmDialog={props.confirmDialog} 
+                    setConfirmDialog={props.setConfirmDialog} 
+                    onConfirm={()=>props.onConfirm(`"${props.title} by: ${props.composer}" deleted succesfully`, "error", handleDeletePiece)}/>
         </Paper>
     )
 };

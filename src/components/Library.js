@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Piece from "./Piece";
 import AddEditPieceForm from "./AddEditPieceForm";
 import { Button, Grid, Typography } from "@mui/material";
+import Notification from "./Notification";
+import Confirmation from "./Confirmation";
 
-function Library({ musicLibrary, setMusicLibrary }){
+function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotify, confirmDialog, setConfirmDialog, onConfirm, handlePopUp }){
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
     const [arranger, setArranger] = useState("")
@@ -37,6 +39,13 @@ function Library({ musicLibrary, setMusicLibrary }){
                         musicLibrary={musicLibrary}
                         handleEditPiece={handleEditPiece}
                         difficultyToString={difficultyToString}
+                        handleNotify={handleNotify}
+                        notify={notify}
+                        setNotify={setNotify}
+                        confirmDialog={confirmDialog}
+                        setConfirmDialog={setConfirmDialog}
+                        handlePopUp={handlePopUp}
+                        onConfirm={onConfirm}
                     />
                     </Grid>
     })
@@ -140,6 +149,7 @@ function handleAddPieceClick(){
                 showRefRecord={showRefRecord}
                 setShowRefRecord={setShowRefRecord}
                 resetForm={resetForm}
+                handleNotify={handleNotify}
             />
         </div>
     )

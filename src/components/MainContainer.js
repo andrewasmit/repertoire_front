@@ -23,11 +23,11 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
-    function handleNotify(message, subtitle){
+    function handleNotify(message, type){
         setNotify({
             isOpen: true,
             message: message,
-            subtitle: subtitle
+            type: type
         })
     }
 
@@ -36,15 +36,14 @@ function MainContainer(){
                 isOpen: true,
                 title: `Are you sure you want to delete ${thing}?`,
                 subtitle: 'You cannot undo this action',
-                type:'warning'
             })
     }
 
-    function onConfirm(message, subtitle, func){
+    function onConfirm(message, type, func){
         if(func){
             func();
         }
-        handleNotify(message, subtitle);
+        handleNotify(message, type);
         setConfirmDialog({...confirmDialog, isOpen: false})
     }
 

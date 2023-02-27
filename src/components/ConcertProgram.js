@@ -106,8 +106,7 @@ function ConcertProgram({
         setEditConcert(false);
     }
 
-    function handleDeleteProgram(e){
-        // e.preventDefault();
+    function handleDeleteProgram(){
         fetch(`http://localhost:9292/concerts/${id}`, {
             method: "DELETE",
         })
@@ -230,7 +229,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             <Button variant="outlined" onClick={()=>handlePopUp(concert_description)}className="card-button-group">Delete Concert Program</Button>
         </Paper>
     <Notification notify={notify} setNotify={setNotify} />
-    <Confirmation confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} onConfirm={e=>onConfirm(`${concert_description} deleted succesfully`, "info", handleDeleteProgram)}/>
+    <Confirmation confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} onConfirm={()=>onConfirm(`"${concert_description} -${year}" deleted succesfully`, "error", handleDeleteProgram)}/>
     </Grid>
     )
 };

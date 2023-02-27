@@ -86,7 +86,7 @@ function ConcertArchives({
         })
         .then(res=>res.json())
         .then(data=>setAllEnsembles([...allEnsembles, data]))
-        handleNotify(`"${newEns}" created succesfullly`, 'success')
+        handleNotify(`New Ensemble: "${newEns}" created succesfullly`, 'success')
         setNewEns("")
         setGradeLevel("--Choose Grade Level--")
         setAddNewEns(false)
@@ -108,7 +108,7 @@ function ConcertArchives({
         setYear(null)
         setAddNewEns(false)
         setAddNewConcert(false)
-        handleNotify(`New Concert: "${concertDescription}" created succesfullly`, 'success')
+        handleNotify(`New Concert: "${concertDescription} -${year}" created succesfullly`, 'success')
     }
 
     function handleNewConcertClick(){

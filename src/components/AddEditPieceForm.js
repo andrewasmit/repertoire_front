@@ -54,6 +54,7 @@ function AddEditPieceForm(props){
         if(createGenre===true){
             setCreateGenre(false)
         }
+        props.handleNotify(`New Piece: "${props.title}" created successfully`)
     }
 
 // Submit form for EDIT piece
