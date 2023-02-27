@@ -4,7 +4,7 @@ import { Snackbar, Alert } from "@mui/material";
 
 function Notification({ notify, setNotify }){
 
-    function handleClose(e,r){
+    function handleClose(r){
         if(r==='clickaway'){
             return
         }

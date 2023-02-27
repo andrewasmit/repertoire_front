@@ -12,6 +12,8 @@ import { Typography } from "@mui/material";
 function MainContainer(){
 
     const [musicLibrary, setMusicLibrary] = useState([]);
+    const [notify, setNotify] = useState({isOpen: false, message: '', type: ''})
+    const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title: '', subtitle: ''})
 
     // Fetching "Pieces" for the music library
     useEffect(()=>{
@@ -21,6 +23,27 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
+    function handleNotify(message){
+        setNotify({
+            isOpen: true,
+            message: message,
+            subtitle:'success'
+        })
+    }
+
+    function handlePopUp(thing){
+            setConfirmDialog({
+                isOpen: true,
+                title: `Are you sure you want to delete ${thing}?`,
+                subtitle: 'You cannot undo this action',
+                type:'warning'
+            })
+    }
+
+    function onConfirm(){
+        handleNotify();
+        setConfirmDialog({...confirmDialog, isOpen: false})
+    }
 
     // Return of JSX
     return(
@@ -30,10 +53,29 @@ function MainContainer(){
                 <Home />
             </Route>
             <Route exact path="/library">
-                <Library musicLibrary={ musicLibrary } setMusicLibrary={ setMusicLibrary } />
+                <Library 
+                    musicLibrary={ musicLibrary } 
+                    setMusicLibrary={ setMusicLibrary }
+                    onConfirm={onConfirm} 
+                    handlePopUp={handlePopUp}
+                    handleNotify={handleNotify}
+                    notify={ notify }
+                    setNotify={ setNotify }
+                    confirmDialog={ confirmDialog }
+                    setConfirmDialog={ setConfirmDialog }
+                />
             </Route>
             <Route exact path="/concerts">
-                <ConcertArchives musicLibrary={ musicLibrary }/>
+                <ConcertArchives 
+                    musicLibrary={ musicLibrary }
+                    onConfirm={ onConfirm } 
+                    handlePopUp={ handlePopUp }
+                    handleNotify={ handleNotify }
+                    notify={ notify }
+                    setNotify={ setNotify }
+                    confirmDialog={ confirmDialog }
+                    setConfirmDialog={ setConfirmDialog }
+                />
             </Route>
             <Route path = "*">
                 <Typography variant="h4" component="h3">Error 404: Page Not Found</Typography>

@@ -4,9 +4,20 @@ import { Container } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import ConcertProgram from "./ConcertProgram";
 import NavigationIcon from '@mui/icons-material/Navigation';
+import Notification from "./Notification";
 
 
-function ConcertArchives({ musicLibrary }){
+function ConcertArchives({ 
+        musicLibrary, 
+        onConfirm, 
+        handlePopUp, 
+        handleNotification, 
+        notify, 
+        setNotify, 
+        handleNotify,
+        confirmDialog, 
+        setConfirmDialog 
+    }){
 
     const [concertPrograms, setConcertPrograms] = useState([]);
     const [allEnsembles, setAllEnsembles] = useState([]);
@@ -68,6 +79,7 @@ function ConcertArchives({ musicLibrary }){
         })
         .then(res=>res.json())
         .then(data=>setAllEnsembles([...allEnsembles, data]))
+        handleNotify(`New Ensemble: ${newEns} created succesfullly`)
         setNewEns("")
         setAddNewEns(false)
     }
@@ -182,7 +194,8 @@ function ConcertArchives({ musicLibrary }){
                 <Fab type="submit" variant="extended"><NavigationIcon />Submit New Ensemble</Fab>
             </Box> : null }
             
-            {programsToDisplay}            
+            {programsToDisplay}    
+            <Notification notify={notify} setNotify={setNotify} />        
         </Grid>
     )
 };
