@@ -57,6 +57,13 @@ function ConcertArchives({
                     setConcertPrograms={setConcertPrograms}
                     handleConcertPatch={handleConcertPatch}
                     className="concert-program"
+                    handleNotify={handleNotify}
+                    notify={ notify }
+                    setNotify={ setNotify }
+                    confirmDialog={ confirmDialog }
+                    setConfirmDialog={ setConfirmDialog }
+                    onConfirm={onConfirm} 
+                    handlePopUp={handlePopUp}
                 />
     })
 
@@ -79,8 +86,9 @@ function ConcertArchives({
         })
         .then(res=>res.json())
         .then(data=>setAllEnsembles([...allEnsembles, data]))
-        handleNotify(`New Ensemble: ${newEns} created succesfullly`)
+        handleNotify(`"${newEns}" created succesfullly`, 'success')
         setNewEns("")
+        setGradeLevel("--Choose Grade Level--")
         setAddNewEns(false)
     }
 
@@ -100,6 +108,7 @@ function ConcertArchives({
         setYear(null)
         setAddNewEns(false)
         setAddNewConcert(false)
+        handleNotify(`New Concert: "${concertDescription}" created succesfullly`, 'success')
     }
 
     function handleNewConcertClick(){
@@ -177,7 +186,7 @@ function ConcertArchives({
                     onChange={e=>setNewEns(e.target.value)}
                 />
                 <FormControl fullWidth>
-                    <InputLabel id="new-performance-ens-dropdown">Select Performing Ensemble</InputLabel>
+                    <InputLabel id="new-performance-ens-dropdown">Select Grade Level</InputLabel>
                     <Select
                         labelId="new-ens-grade-dropdown"
                         id="new-ens-grade-dropdown"

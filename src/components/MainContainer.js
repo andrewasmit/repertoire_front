@@ -23,11 +23,11 @@ function MainContainer(){
         .catch(err=>console.log(err));
     }, []);
 
-    function handleNotify(message){
+    function handleNotify(message, subtitle){
         setNotify({
             isOpen: true,
             message: message,
-            subtitle:'success'
+            subtitle: subtitle
         })
     }
 
@@ -40,8 +40,11 @@ function MainContainer(){
             })
     }
 
-    function onConfirm(){
-        handleNotify();
+    function onConfirm(message, subtitle, func){
+        if(func){
+            func();
+        }
+        handleNotify(message, subtitle);
         setConfirmDialog({...confirmDialog, isOpen: false})
     }
 

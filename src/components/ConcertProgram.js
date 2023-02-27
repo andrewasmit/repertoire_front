@@ -4,6 +4,8 @@ import Performance from "./Performance";
 // Material UI
 import { Grid, TextField, Box, Fab, Container, Typography, Button, ButtonGroup, FormControl, InputLabel, Select, MenuItem, Paper } from "@mui/material";
 import NavigationIcon from '@mui/icons-material/Navigation';
+import Notification from "./Notification";
+import Confirmation from "./Confirmation";
 
 
 
@@ -17,7 +19,14 @@ function ConcertProgram({
             performances, 
             musicLibrary, 
             setConcertPrograms, 
-            handleConcertPatch 
+            handleConcertPatch,
+            handleNotify,
+            notify,
+            setNotify,
+            confirmDialog,
+            setConfirmDialog,
+            handlePopUp,
+            onConfirm
         }){
 
     const [showProgram, setShowProgram] = useState(false);
@@ -48,6 +57,7 @@ function ConcertProgram({
                         id={performance.id}
                         key={performance.id}
                         handleConcertPatch={handleConcertPatch}
+                        handleNotify={handleNotify}
                     />
         }) ) }
     }, [musicLibrary, concertPrograms, allEnsembles, performances, handleConcertPatch]);  
@@ -74,6 +84,7 @@ function ConcertProgram({
         setSelectedEns("--Select an Ensemble--");
         setAddAPiece(false);
         setShowProgram(true);
+        handleNotify(`"${newPerformance}" added successfully`)
     }
 
     // Fetch for editing the Concert Program details (name/year)
@@ -96,7 +107,7 @@ function ConcertProgram({
     }
 
     function handleDeleteProgram(e){
-        e.preventDefault();
+        // e.preventDefault();
         fetch(`http://localhost:9292/concerts/${id}`, {
             method: "DELETE",
         })
@@ -216,8 +227,10 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 
             {/* Edit / Delete Buttons */}
             <Button variant="contained" onClick={()=>setEditConcert(!editConcert)} className="card-button-group">{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
-            <Button variant="outlined" onClick={handleDeleteProgram}className="card-button-group">Delete Concert Program</Button>
+            <Button variant="outlined" onClick={()=>handlePopUp(concert_description)}className="card-button-group">Delete Concert Program</Button>
         </Paper>
+    <Notification notify={notify} setNotify={setNotify} />
+    <Confirmation confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} onConfirm={e=>onConfirm(`${concert_description} deleted succesfully`, "info", handleDeleteProgram)}/>
     </Grid>
     )
 };

@@ -17,7 +17,7 @@ function Notification({ notify, setNotify }){
     return(
         <Snackbar
             open = {notify.isOpen}
-            autoHideDuration={2000}
+            autoHideDuration={3000}
             anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             onClose={handleClose}
         >

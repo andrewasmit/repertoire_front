@@ -2,7 +2,7 @@ import { Delete, RemoveCircleOutline } from "@mui/icons-material";
 import { Paper, Typography, Fab, Button } from "@mui/material";
 import React from "react";
 
-function Performance({ composer, arranger, title, ensemble, id, handleConcertPatch }){
+function Performance({ composer, arranger, title, ensemble, id, handleConcertPatch, handleNotify }){
 
 
     function handleDeletePerformanceClick(e){
@@ -12,6 +12,7 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
         })
         .then(res=>res.json())
         .then(data=>handleConcertPatch(data))
+        handleNotify(`"${title}" removed from program`, "error")
     }
 
     // Return of JSX
