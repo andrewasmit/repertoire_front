@@ -95,7 +95,7 @@ function Piece(props){
         <Paper elevation={4} className="library-card">
             <Typography variant="h5" component="h4" className="card-title">"{props.title}"</Typography>
             <Typography variant="subtitle1" component="h5" className="card-composer">{props.composer}</Typography>
-            { props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
+            { props.arranger === "" || props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
         
             <Typography variant="body2" component="p" className="card-body"><strong>Difficulty: </strong>{props.difficultyToString(props.difficulty)}</Typography>
             <Typography variant="body2" component="p" className="card-body"><strong>Genre: </strong>{props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
