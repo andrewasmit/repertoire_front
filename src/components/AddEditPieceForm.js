@@ -94,7 +94,7 @@ function AddEditPieceForm(props){
     // Return of JSX
     return(
     <div>
-    <Grid container spacing={0}>
+    <Grid container >
         <Grid item xs={12}>
             <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
         </Grid>

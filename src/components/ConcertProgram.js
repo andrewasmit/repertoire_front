@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Performance from "./Performance";
-
-// Material UI
 import { Grid, TextField, Box, Fab, Container, Typography, Button, ButtonGroup, FormControl, InputLabel, Select, MenuItem, Paper } from "@mui/material";
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Notification from "./Notification";
 import Confirmation from "./Confirmation";
-
-
 
 
 function ConcertProgram({ 
@@ -41,6 +37,7 @@ function ConcertProgram({
         return <option id={p.id}>{p.name}</option>
     }))
 
+    
     useEffect(()=>{
         if(performances !== [] && allEnsembles !== []){
         setPerformancesToDisplay( performances.map(performance=>{
@@ -63,7 +60,6 @@ function ConcertProgram({
     }, [musicLibrary, concertPrograms, allEnsembles, performances, handleConcertPatch]);  
 
     
-// Fetch for Adding a new performance to the program
     function handleAddNewPiece(e){
         e.preventDefault();
         const pieceToAdd = {
@@ -87,7 +83,6 @@ function ConcertProgram({
         handleNotify(`"${newPerformance}" added successfully`)
     }
 
-    // Fetch for editing the Concert Program details (name/year)
     function handleEditConcert(e){
         e.preventDefault();
         const editedConcert = {

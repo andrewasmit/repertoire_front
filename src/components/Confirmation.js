@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Typography, Button } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, Typography, Button } from "@mui/material";
 import React from "react";
 
 function Confirmation({ confirmDialog, setConfirmDialog, onConfirm }){
@@ -6,9 +6,6 @@ function Confirmation({ confirmDialog, setConfirmDialog, onConfirm }){
 
     return(
         <Dialog open = {confirmDialog.isOpen}>
-            <DialogTitle>
-
-            </DialogTitle>
             <DialogContent>
                 <Typography variant="h6">{confirmDialog.title}</Typography>
                 <Typography variant="subtitle2">{confirmDialog.subtitle}</Typography>

@@ -1,8 +1,15 @@
-import { Delete, RemoveCircleOutline } from "@mui/icons-material";
 import { Paper, Typography, Fab, Button } from "@mui/material";
 import React from "react";
 
-function Performance({ composer, arranger, title, ensemble, id, handleConcertPatch, handleNotify }){
+function Performance({ 
+            composer, 
+            arranger, 
+            title, 
+            ensemble, 
+            id, 
+            handleConcertPatch, 
+            handleNotify 
+        }){
 
 
     function handleDeletePerformanceClick(e){
@@ -20,7 +27,7 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
         <Paper elevation={4} className="performance-card">
             <Typography variant="h5" component="h3" className="card-title">{title}</Typography>
             <Typography variant="subtitle1" component="h5" className="card-composer">{composer}</Typography>
-            {arranger === null || undefined ? null : <Typography variant="subtitle2" component="h6" className="card-body">Arr: {arranger}</Typography>}
+            {arranger === null || arranger === undefined ? null : <Typography variant="subtitle2" component="h6" className="card-body">Arr: {arranger}</Typography>}
             <Typography variant="body2" component="p">{ensemble}</Typography>
             <Button variant="text" onClick={handleDeletePerformanceClick} size="small">Remove Performance</Button>
         </Paper>

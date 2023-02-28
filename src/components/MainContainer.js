@@ -3,10 +3,6 @@ import Library from "./Library";
 import ConcertArchives from "./ConcertArchives";
 import Home from "./Home";
 import { Switch, Route } from 'react-router-dom';
-// Material UI
-// import CssBaseline from '@mui/material/CssBaseline';
-// import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import { Typography } from "@mui/material";
 
 function MainContainer(){
@@ -47,44 +43,44 @@ function MainContainer(){
         setConfirmDialog({...confirmDialog, isOpen: false})
     }
 
-    // Return of JSX
-    return(
-        <div id="main-container">
-        <Switch>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            <Route exact path="/library">
-                <Library 
-                    musicLibrary={ musicLibrary } 
-                    setMusicLibrary={ setMusicLibrary }
-                    onConfirm={onConfirm} 
-                    handlePopUp={handlePopUp}
-                    handleNotify={handleNotify}
-                    notify={ notify }
-                    setNotify={ setNotify }
-                    confirmDialog={ confirmDialog }
-                    setConfirmDialog={ setConfirmDialog }
-                />
-            </Route>
-            <Route exact path="/concerts">
-                <ConcertArchives 
-                    musicLibrary={ musicLibrary }
-                    onConfirm={ onConfirm } 
-                    handlePopUp={ handlePopUp }
-                    handleNotify={ handleNotify }
-                    notify={ notify }
-                    setNotify={ setNotify }
-                    confirmDialog={ confirmDialog }
-                    setConfirmDialog={ setConfirmDialog }
-                />
-            </Route>
-            <Route path = "*">
-                <Typography variant="h4" component="h3">Error 404: Page Not Found</Typography>
-            </Route>
-        </Switch>
-        </div>
-    )
+// Return of JSX
+return(
+    <div id="main-container">
+    <Switch>
+        <Route exact path="/">
+            <Home />
+        </Route>
+        <Route exact path="/library">
+            <Library 
+                musicLibrary={ musicLibrary } 
+                setMusicLibrary={ setMusicLibrary }
+                onConfirm={onConfirm} 
+                handlePopUp={handlePopUp}
+                handleNotify={handleNotify}
+                notify={ notify }
+                setNotify={ setNotify }
+                confirmDialog={ confirmDialog }
+                setConfirmDialog={ setConfirmDialog }
+            />
+        </Route>
+        <Route exact path="/concerts">
+            <ConcertArchives 
+                musicLibrary={ musicLibrary }
+                onConfirm={ onConfirm } 
+                handlePopUp={ handlePopUp }
+                handleNotify={ handleNotify }
+                notify={ notify }
+                setNotify={ setNotify }
+                confirmDialog={ confirmDialog }
+                setConfirmDialog={ setConfirmDialog }
+            />
+        </Route>
+        <Route path = "*">
+            <Typography variant="h4" component="h3">Error 404: Page Not Found</Typography>
+        </Route>
+    </Switch>
+    </div>
+  )
 };
 
 export default MainContainer;
