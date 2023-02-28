@@ -134,7 +134,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 
     // Return of JSX
     return(
-        <Grid item xs={12} md={6}  className="concert-program">
+        <Grid item xs={12} md={6} xl={4} className="concert-program">
             <Paper elevation={4}>
             { editConcert ?
             <Box

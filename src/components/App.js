@@ -12,8 +12,8 @@ import { Container } from '@mui/material';
 
 function App() {
   return (
-    <div className="App">
-      <Container maxWidth="xl">
+    <div id="App">
+      <Container maxWidth>
         <Header />
         <MainContainer />
         <Footer />

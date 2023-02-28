@@ -4,7 +4,7 @@
   font-family: "Roboto";
 }
 #main-container{
-  background-color: #eaf4f4;
+  background-color: #FCFFF7;
   margin: 0;
 }
 
@@ -23,7 +23,7 @@
 #header{
   text-align: center;
   margin: 0;
-  background-color: #f0e6ef;
+  background-color:#F5F2F2;
   padding: 5px;
 }
 
@@ -97,3 +97,7 @@
   margin: 15px;
 }
 
+.home-text{
+  text-align: center;
+  padding: 10px;
+}
