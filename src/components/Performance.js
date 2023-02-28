@@ -23,9 +23,6 @@ function Performance({ composer, arranger, title, ensemble, id, handleConcertPat
             {arranger === null || undefined ? null : <Typography variant="subtitle2" component="h6" className="card-body">Arr: {arranger}</Typography>}
             <Typography variant="body2" component="p">{ensemble}</Typography>
             <Button variant="text" onClick={handleDeletePerformanceClick} size="small">Remove Performance</Button>
-            {/* <Fab onClick={handleDeletePerformanceClick} size="small" color="primary" aria-label="add">
-                <RemoveCircleOutline />
-            </Fab> */}
         </Paper>
     )
 };

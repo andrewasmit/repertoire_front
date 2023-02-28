@@ -64,21 +64,24 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
         }
     };
 
+    // Auto-populating the form to edit
 function handleEditPiece(id){
     setEditPiece(true)
     setEditId(id)
     const piece = musicLibrary.filter(p=>p.id===id)[0]
+    console.log(piece)
+    console.log(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setTitle(piece.title)
-    setArranger(piece.arranger)
     setComposer(piece.composer)
     setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setGenre(piece.genre)
     setNumPlayers(piece.number_of_players)
-    setRefRecord(piece.reference_recording)
     if(piece.reference_recording !== null){
         setShowRefRecord(true)
+        setRefRecord(piece.reference_recording)
     } if (piece.arranger !== null){
         setShowArr(true)
+        setArranger(piece.arranger)
     }
 }
 

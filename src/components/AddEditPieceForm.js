@@ -64,7 +64,7 @@ function AddEditPieceForm(props){
             title: props.title,
             composer: props.composer,
             arranger: props.arranger,
-            difficulty: parseInt(props.difficulty.split('').shift()),
+            difficulty: parseInt(props.difficulty),
             number_of_players: parseInt(props.numPlayers),
             genre: props.genre,
             reference_recording: props.refRecord,
@@ -88,6 +88,7 @@ function AddEditPieceForm(props){
         if(createGenre===true){
             setCreateGenre(false)
         }
+        props.handleNotify(`"${props.title}" successfully updated`)
     }
 
     // Return of JSX

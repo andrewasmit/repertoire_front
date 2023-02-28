@@ -127,7 +127,7 @@ function Piece(props){
                 <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Add Note!</Fab>
             </Box> : null }
             <Button size="small" variant="contained" onClick={handleEditPieceClick} className="card-button-group">Edit Piece</Button>
-            <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={props.handlePopUp} >Delete</Button>
+            <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={()=>props.handlePopUp(props.title)} >Delete</Button>
             <Notification notify={props.notify} setNotify={props.setNotify}/>
             <Confirmation 
                     confirmDialog={props.confirmDialog} 
