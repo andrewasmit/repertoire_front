@@ -39,8 +39,6 @@ function AddEditPieceForm(props){
     })
 
 
-    console.log(props.difficulty)
-
 // Submit form for NEW piece
     function handleNewPieceSubmit(e){
         e.preventDefault();
@@ -68,6 +66,7 @@ function AddEditPieceForm(props){
         if(createGenre===true){
             setCreateGenre(false)
         }
+        props.setShowForm(false);
         props.handleNotify(`New Piece: "${props.title}" created successfully`)
     }
 
@@ -107,8 +106,7 @@ function AddEditPieceForm(props){
 
     // Return of JSX
     return(
-    <div>
-    <Grid container >
+    <Grid container className="archive-form">
         <Grid item xs={12}>
             <Typography variant="h4" component="h3">{ props.editPiece ? `Edit "${props.title}"` : "Add A New Piece" }</Typography>
         </Grid>
@@ -122,7 +120,7 @@ function AddEditPieceForm(props){
             onSubmit={ props.editPiece ? handleEditPieceSubmit : handleNewPieceSubmit }
         >
             {/* Title */}
-        <Grid xs={12} md={6} xl={4}> 
+        <Grid item xs={12} md={6} xl={4}> 
             <TextField
                 id="outlined-controlled"
                 label="Title"
@@ -132,7 +130,7 @@ function AddEditPieceForm(props){
         </Grid>
 
             {/* Composer */}
-        <Grid xs={12} md={6} xl={4}>
+        <Grid item xs={12} md={6} xl={4}>
             <TextField
                 id="outlined-controlled"
                 label="Composer"
@@ -237,7 +235,6 @@ function AddEditPieceForm(props){
             </Fab>
         </Box>
     </Grid>
-    </div>
     )
 };
 

@@ -142,7 +142,7 @@ function ConcertArchives({
             
 
             {/* Toggle Form for submitting New Concert */}
-            { addNewConcert ? <Box
+            { addNewConcert ? <Grid container className="archive-form"> <Box
                 component="form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -151,23 +151,27 @@ function ConcertArchives({
                 autoComplete="off"
                 onSubmit={handleSubmitNewConcert}
             >
+                <Grid item xs={12} >
                 <TextField
                     id="new-concert-name"
                     label="New Concert Description"
                     value={concertDescription}
                     onChange={e=>setConcertDescription(e.target.value)}
                 />
+                </Grid>
+                <Grid item xs={12}>
                 <TextField
                     id="new-concert-year"
                     label="Year"
                     value={year}
                     onChange={e=>setYear(e.target.value)}
                 />
+                </Grid>
                 <Fab type="submit" variant="extended"><NavigationIcon />Submit New Concert</Fab>
-            </Box> : null }
+            </Box></Grid> : null }
 
         {/* Toggle Form for submitting New Ensemble */}
-            { addNewEns ? <Box
+            { addNewEns ? <Grid container className="archive-form"><Box
                 component="form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -176,12 +180,15 @@ function ConcertArchives({
                 autoComplete="off"
                 onSubmit={handleSubmitNewEns}
             >
+                <Grid item xs={12} >
                 <TextField
                     id="new-concert-name"
                     label="New Ensemble "
                     value={newEns}
                     onChange={e=>setNewEns(e.target.value)}
                 />
+                </Grid>
+                <Grid item xs={12} >
                 <FormControl fullWidth>
                     <InputLabel id="new-performance-ens-dropdown">Select Grade Level</InputLabel>
                     <Select
@@ -197,8 +204,9 @@ function ConcertArchives({
                         <MenuItem value={"Beginner"} >Beginner</MenuItem>
                     </Select>
                 </FormControl>
+                </Grid>
                 <Fab type="submit" variant="extended"><NavigationIcon />Submit New Ensemble</Fab>
-            </Box> : null }
+            </Box></Grid> : null }
             
             {programsToDisplay}    
             <Notification notify={notify} setNotify={setNotify} />        

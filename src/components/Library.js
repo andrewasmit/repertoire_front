@@ -14,6 +14,7 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
     const [numPlayers, setNumPlayers] = useState("")
     const [refRecord, setRefRecord] = useState("")
 
+    const [showForm, setShowForm] = useState(false)
     const [showArr, setShowArr] = useState(false)
     const [showNotes, setShowNotes] = useState(false)
     const [showRefRecord, setShowRefRecord] = useState(false)
@@ -45,6 +46,8 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
                         setConfirmDialog={setConfirmDialog}
                         handlePopUp={handlePopUp}
                         onConfirm={onConfirm}
+                        showForm={showForm}
+                        setShowForm={setShowForm}
                     />
                     </Grid>
     })
@@ -66,6 +69,7 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
     // Auto-populating the form to edit
 function handleEditPiece(id){
     resetForm();
+    setShowForm(true);
     setEditPiece(true)
     setEditId(id)
     const piece = musicLibrary.filter(p=>p.id===id)[0]
@@ -105,22 +109,20 @@ function resetForm(){
     }if(editPiece===true){
         setEditPiece(false)
     }
+    setShowForm(false)
 }
 
 function handleAddPieceClick(){
     resetForm();
-    // Trigger Pop-Up
+    setShowForm(!showForm)
 }
 
 
     return(
         <div  id ="library">
             <Typography variant="h4" component="h3" className="page-header">Music Library</Typography>
-            <Button variant="outlined" size="small" onClick={handleAddPieceClick}>Add New Piece</Button>
-            <Grid container spacing={2}>
-                {piecesToDisplay}
-            </Grid>
-            <AddEditPieceForm 
+            <Button variant="outlined" size="small" onClick={handleAddPieceClick} >{ showForm ? "Hide Form" : "Add New Piece" }</Button>
+            {showForm ? <AddEditPieceForm 
                 musicLibrary={ musicLibrary } 
                 setMusicLibrary={ setMusicLibrary } 
                 editPiece={ editPiece }
@@ -152,7 +154,10 @@ function handleAddPieceClick(){
                 setShowRefRecord={setShowRefRecord}
                 resetForm={resetForm}
                 handleNotify={handleNotify}
-            />
+            /> : null }
+            <Grid container spacing={2}>
+                {piecesToDisplay}
+            </Grid>
         </div>
     )
 };

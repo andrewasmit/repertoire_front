@@ -18,6 +18,13 @@
 
 #library{
   padding: 5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#library > button{
+  margin-bottom: 40px;
 }
 
 #header{
@@ -100,4 +107,8 @@
 .home-text{
   text-align: center;
   padding: 10px;
+}
+
+.archive-form{
+  justify-content: center;
 }
