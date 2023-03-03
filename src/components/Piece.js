@@ -51,7 +51,11 @@ function Piece(props){
     const performancesOfPiece = performArr.map(performance=>{
         const targetTitle = props.concertPrograms.filter(program=>program.id === performance.concert_id)[0].concert_description
         const targetYear = props.concertPrograms.filter(program=>program.id === performance.concert_id)[0].year
-        return <Typography variant="p" component="p" className="card-note">{targetTitle} {targetYear}</Typography>
+        const targetEns = props.allEnsembles.filter(ens=>ens.id === performance.ensemble_id)[0].name
+        return <div className="card-note">
+                    <Typography variant="subtitle2" component="p" > {targetTitle} {targetYear}</Typography>
+                    <Typography variant="body2" component="p">-{targetEns}</Typography>
+                </div>
     })
 
     function handleAddNote(e){
