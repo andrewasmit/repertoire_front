@@ -110,10 +110,17 @@ function ConcertProgram({
         setEditConcert(false);
     }
 
-    function handleResetFrom(){
-        setAddAPiece(false)
+    function handleResetForm(){
         setSelectedEns("--Select an Ensemble--")
         setNewPerformance("--Select a Piece--")
+    }
+
+    function handleDiscardPerformance(){
+        if(addAPiece){
+            handleResetForm();
+            setAddAPiece(false)
+        } else 
+        setAddAPiece(!addAPiece)
     }
     
 
@@ -165,7 +172,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
             {/* Show Performance / Add Piece Buttons */}
             <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
                 <Button  onClick={()=>setShowProgram(!showProgram)}>{showProgram ? "Hide Performances" : "Show Performances" }</Button>
-                <Button  onClick={()=>setAddAPiece(!addAPiece)}>{addAPiece ? "Discard New Performance" : "Add Performance" }</Button>
+                <Button  onClick={handleDiscardPerformance}>{addAPiece ? "Discard New Performance" : "Add Performance" }</Button>
             </ButtonGroup>
             
             {/* Toggle form to Add a Piece */}
@@ -209,7 +216,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
                     </Select>
                 </FormControl>
                 <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
-                    <Button onClick={handleResetFrom} size="medium" color="primary" aria-label="reset">Reset Form</Button>
+                    <Button onClick={handleResetForm} size="medium" color="primary" aria-label="reset">Reset Form</Button>
                     <Button type="submit">Submit</Button>
                 </ButtonGroup>
                 </Box>
@@ -221,7 +228,7 @@ useEffect(()=>{ setDropdownOptionsForEnsembles(allEnsembles.map(p=>{
 
             {/* Edit / Delete Buttons */}
             <Button variant="contained" onClick={()=>setEditConcert(!editConcert)} className="card-button-group">{ editConcert ? "Discard Edit Concert" : "Edit Concert Details" }</Button>
-            <Button variant="outlined" onClick={()=>handlePopUp(concert_description)}className="card-button-group">Delete Concert Program</Button>
+            <Button variant="outlined" onClick={()=>handlePopUp(concert_description)}className="card-button-group">Delete Concert</Button>
         </Paper>
     <Notification notify={notify} setNotify={setNotify} />
     <Confirmation confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} onConfirm={()=>onConfirm(`"${concert_description} -${year}" deleted succesfully`, "error", handleDeleteProgram)}/>
