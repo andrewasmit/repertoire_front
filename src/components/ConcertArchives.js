@@ -145,7 +145,7 @@ function ConcertArchives({
             { addNewConcert ? <Grid container className="archive-form"> <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { m: 1, width: '40ch' },
                 }}
                 noValidate                    
                 autoComplete="off"
@@ -165,16 +165,17 @@ function ConcertArchives({
                     label="Year"
                     value={year}
                     onChange={e=>setYear(e.target.value)}
+                    sx={{width: '40ch' }}
                 />
                 </Grid>
-                <Fab type="submit" variant="extended"><NavigationIcon />Submit New Concert</Fab>
+                <Fab type="submit" variant="extended" className="archive-form"><NavigationIcon />Submit New Concert</Fab>
             </Box></Grid> : null }
 
         {/* Toggle Form for submitting New Ensemble */}
             { addNewEns ? <Grid container className="archive-form"><Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { width: '40ch', margin: '15px' },
                 }}
                 noValidate                    
                 autoComplete="off"
@@ -186,6 +187,9 @@ function ConcertArchives({
                     label="New Ensemble "
                     value={newEns}
                     onChange={e=>setNewEns(e.target.value)}
+                    sx={{
+                        '& .MuiTextField-root': {width: '40ch' },
+                    }}
                 />
                 </Grid>
                 <Grid item xs={12} >
@@ -197,6 +201,7 @@ function ConcertArchives({
                         value={gradeLevel}
                         label="--Choose Grade Level--"
                         onChange={e=>setGradeLevel(e.target.value)}
+                        sx={{width: '40ch', margin: '15px' }}
                     >
                         <MenuItem value={null} disabled>--Choose Grade Level--</MenuItem>
                         <MenuItem value={"High School"} >High School</MenuItem>
@@ -205,7 +210,7 @@ function ConcertArchives({
                     </Select>
                 </FormControl>
                 </Grid>
-                <Fab type="submit" variant="extended"><NavigationIcon />Submit New Ensemble</Fab>
+                <Fab type="submit" variant="extended" className="archive-form"><NavigationIcon />Submit New Ensemble</Fab>
             </Box></Grid> : null }
             
             {programsToDisplay}    
