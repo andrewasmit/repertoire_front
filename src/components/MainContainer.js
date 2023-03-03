@@ -8,6 +8,8 @@ import { Typography } from "@mui/material";
 function MainContainer(){
 
     const [musicLibrary, setMusicLibrary] = useState([]);
+    const [concertPrograms, setConcertPrograms] = useState([]);
+    const [allEnsembles, setAllEnsembles] = useState([]);
     const [notify, setNotify] = useState({isOpen: false, message: '', type: ''})
     const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title: '', subtitle: ''})
 
@@ -16,6 +18,22 @@ function MainContainer(){
         fetch("http://localhost:9292/library")
         .then(res=>res.json())
         .then(data=>setMusicLibrary(data))
+        .catch(err=>console.log(err));
+    }, []);
+
+    // Fetching ensembles
+    useEffect(()=>{
+        fetch("http://localhost:9292/ensembles")
+        .then(res=>res.json())
+        .then(data=>setAllEnsembles(data))
+        .catch(err=>console.log(err));
+    }, []);
+
+    // Fetching Concert Program data (ensembles and performances of pieces)
+    useEffect(()=>{
+        fetch("http://localhost:9292/concerts")
+        .then(res=>res.json())
+        .then(data=>setConcertPrograms(data))
         .catch(err=>console.log(err));
     }, []);
 
@@ -61,6 +79,8 @@ return(
                 setNotify={ setNotify }
                 confirmDialog={ confirmDialog }
                 setConfirmDialog={ setConfirmDialog }
+                concertPrograms={concertPrograms}
+                allEnsembles={allEnsembles}
             />
         </Route>
         <Route exact path="/concerts">
@@ -73,6 +93,10 @@ return(
                 setNotify={ setNotify }
                 confirmDialog={ confirmDialog }
                 setConfirmDialog={ setConfirmDialog }
+                allEnsembles={allEnsembles}
+                setAllEnsembles={setAllEnsembles}
+                concertPrograms={concertPrograms}
+                setConcertPrograms={setConcertPrograms}
             />
         </Route>
         <Route path = "*">

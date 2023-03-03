@@ -4,7 +4,19 @@ import AddEditPieceForm from "./AddEditPieceForm";
 import { Button, Grid, Typography } from "@mui/material";
 
 
-function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotify, confirmDialog, setConfirmDialog, onConfirm, handlePopUp }){
+function Library({ 
+        musicLibrary, 
+        setMusicLibrary, 
+        handleNotify, 
+        notify, 
+        setNotify, 
+        confirmDialog, 
+        setConfirmDialog, 
+        onConfirm, 
+        handlePopUp, 
+        allEnsembles, 
+        concertPrograms }){
+
     const [title, setTitle] = useState("")
     const [composer, setComposer] = useState("")
     const [arranger, setArranger] = useState("")
@@ -48,6 +60,8 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
                         onConfirm={onConfirm}
                         showForm={showForm}
                         setShowForm={setShowForm}
+                        allEnsembles={allEnsembles}
+                        concertPrograms={concertPrograms}
                     />
                     </Grid>
     })

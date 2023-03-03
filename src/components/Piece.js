@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Notification from "./Notification";
 import Confirmation from "./Confirmation";
 import { Fab, TextField, Typography, Button, ButtonGroup, Link, Grid } from "@mui/material";
@@ -9,9 +9,12 @@ import Paper from '@mui/material/Paper';
 
 
 function Piece(props){
+
     const [showAddNote, setShowAddNote] = useState(false);
     const [newNote, setNewNote] = useState("");
     const [showNotes, setShowNotes] = useState(false);
+    const [showPerformances, setShowPerformances] = useState(false)
+    const [performArr, setPerformArr] = useState([]);
 
     const notesToDisplay = props.notes.map(n=>{
         if(props.notes.length !== 0){
@@ -33,6 +36,23 @@ function Piece(props){
                 </div>
     });
 
+    useEffect(()=>{
+        let arr= []
+        props.concertPrograms.map(program=>{
+            program.performances.map(perf=>{
+                if(perf.piece_id === props.id){
+                    arr.push(perf)
+                }
+            })
+        })
+        setPerformArr(arr)
+    },[])
+
+    const performancesOfPiece = performArr.map(performance=>{
+        const targetTitle = props.concertPrograms.filter(program=>program.id === performance.concert_id)[0].concert_description
+        const targetYear = props.concertPrograms.filter(program=>program.id === performance.concert_id)[0].year
+        return <Typography variant="p" component="p" className="card-note">{targetTitle} {targetYear}</Typography>
+    })
 
     function handleAddNote(e){
         e.preventDefault();
@@ -89,7 +109,7 @@ function Piece(props){
     
 // Return of JSX
 return(
-    <Paper elevation={4} className="library-card">
+    <Paper elevation={4} id={props.id} className="library-card">
         <Typography variant="h5" component="h4" className="card-title">"{props.title}"</Typography>
         <Typography variant="subtitle1" component="h5" className="card-composer">{props.composer}</Typography>
         { props.arranger === "" || props.arranger === null ? null : <Typography variant="subtitle2" component="h6">Arr: {props.arranger}</Typography> }
@@ -99,6 +119,10 @@ return(
         <Typography variant="body2" component="p" className="card-body"><strong>Number of Players: </strong>{props.number_of_players}</Typography> 
         {props.reference_recording === null ? 
         null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }            
+        <Button variant="text" onClick={()=>setShowPerformances(!showPerformances)}>{showPerformances ? "Hide Performances" : "Show Performances" }</Button>
+        { showPerformances ? <Typography variant="subtitle2" component="h4">Performances: </Typography> : null }
+        { showPerformances ? performancesOfPiece : null }
+        { showPerformances && performancesOfPiece.length === 0 ? <Typography variant="body2" component="p">{props.title} has not yet been performed</Typography> : null }
         <ButtonGroup maxWidth variant="text" size="large" aria-label="small button group" className="button-group">
             <Button  onClick={()=>setShowNotes(!showNotes)}>{showNotes ? "Hide Notes" : "Show Notes" }</Button>
             <Button  onClick={()=>setShowAddNote(!showAddNote)}>{showAddNote ? "Discard Note" : "Add Note" }</Button>
@@ -124,7 +148,7 @@ return(
             <Fab type="submit" variant="extended"><NavigationIcon sx={{ mr: 1 }} />Add Note!</Fab>
         </Box> : null }
         <Button size="small" variant="contained" onClick={handleEditPieceClick} className="card-button-group">Edit Piece</Button>
-        <Button size="small" variant="outlined" className="card-button-group" startIcon={<DeleteIcon />} onClick={()=>props.handlePopUp(props.title)} >Delete</Button>
+        <Button size="small" variant="contained" className="card-button-group" startIcon={<DeleteIcon />} onClick={()=>props.handlePopUp(props.title)} >Delete</Button>
         <Notification notify={props.notify} setNotify={props.setNotify}/>
         <Confirmation 
                 confirmDialog={props.confirmDialog} 
