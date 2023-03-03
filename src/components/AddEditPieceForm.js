@@ -113,7 +113,7 @@ function AddEditPieceForm(props){
         <Box
             component="form"
             sx={{
-                '& > :not(style)': { m: 1, width: '25ch' },
+                '& > :not(style)': { m: 1, width: '40ch' },
             }}
             noValidate
             autoComplete="off"
@@ -126,6 +126,7 @@ function AddEditPieceForm(props){
                 label="Title"
                 value={props.title}
                 onChange={e=>props.setTitle(e.target.value)}
+                sx={{width: '40ch' }}
             />
         </Grid>
 
@@ -136,6 +137,7 @@ function AddEditPieceForm(props){
                 label="Composer"
                 value={props.composer}
                 onChange={e=>props.setComposer(e.target.value)}
+                sx={{width: '40ch' }}
             />
         </Grid>
             {/* Arranger - OPTIONAL */}
@@ -145,19 +147,21 @@ function AddEditPieceForm(props){
                 label="Arranger"
                 value={props.arranger}
                 onChange={e=>props.setArranger(e.target.value)}
+                sx={{width: '40ch' }}
             /> : null }
         </Grid>
 
             {/* Difficulty */}
         <Grid item xs={12} md={6} xl={4}>
             <FormControl fullWidth>
-                <InputLabel id="difficulty-dropdown">Difficulty</InputLabel>
+                <InputLabel id="difficulty-dropdown" >Difficulty</InputLabel>
                 <Select
                     labelId="difficulty-dropdown-label"
                     id="difficulty-dropdown"
                     value={props.difficulty}
                     label="Difficulty"
                     onChange={e=>props.setDifficulty(e.target.value)}
+                    sx={{width: '40ch' }}
                 >
                     <MenuItem disabled value={null}>--Select Difficulty--</MenuItem>
                     {difficultyDropdownOptions}
@@ -171,7 +175,8 @@ function AddEditPieceForm(props){
                 id="outlined-controlled"
                 label="Create Genre"
                 value={ createGenre ? null : props.genre }
-                onChange={e=>props.setGenre(e.target.value)}            
+                onChange={e=>props.setGenre(e.target.value)}
+                sx={{width: '40ch' }}            
             /> 
             : <FormControl fullWidth>
                 <InputLabel id="genre-dropdown">Genre</InputLabel>
@@ -181,6 +186,7 @@ function AddEditPieceForm(props){
                     value={props.genre}
                     label="Genre"
                     onChange={e=>props.setGenre(e.target.value)}
+                    sx={{width: '40ch' }}
                 >
                     <MenuItem disabled value={null}>--Select Genre--</MenuItem>
                     {genreDropdownOptions}
@@ -198,6 +204,7 @@ function AddEditPieceForm(props){
                     value={props.numPlayers}
                     label="# of Players"
                     onChange={e=>props.setNumPlayers(e.target.value)}
+                    sx={{width: '40ch' }}
                 >
                     <MenuItem disabled value={null}>--Select Number of Players--</MenuItem>
                     {numPlayerDropdowns}
@@ -211,6 +218,7 @@ function AddEditPieceForm(props){
                 label="Link to Recording"
                 value={props.refRecord}
                 onChange={e=>props.setRefRecord(e.target.value)}
+                sx={{width: '40ch' }}
             /> </Grid>: null }
 
             {/* Notes - OPTIONAL */}
@@ -219,6 +227,7 @@ function AddEditPieceForm(props){
                 label="Notes"
                 value={props.Notes}
                 onChange={e=>props.setNotes(e.target.value)}
+                sx={{width: '40ch' }}
             /> </Grid> : null }
 
 
