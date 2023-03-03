@@ -27,10 +27,10 @@ function MainContainer(){
         })
     }
 
-    function handlePopUp(thing){
+    function handlePopUp(item){
             setConfirmDialog({
                 isOpen: true,
-                title: `Are you sure you want to delete ${thing}?`,
+                title: `Are you sure you want to delete ${item}?`,
                 subtitle: 'You cannot undo this action',
             })
     }

@@ -22,7 +22,7 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
 
     
     const piecesToDisplay = musicLibrary.map(p=>{
-            return  <Grid item xs={12} md={6} lg={4} xl={2}>
+            return  <Grid item xs={12} md={6} lg={4} xl={3}>
                     <Piece
                         title={p.title}
                         composer={p.composer}
@@ -65,20 +65,19 @@ function Library({ musicLibrary, setMusicLibrary, handleNotify, notify, setNotif
 
     // Auto-populating the form to edit
 function handleEditPiece(id){
+    resetForm();
     setEditPiece(true)
     setEditId(id)
     const piece = musicLibrary.filter(p=>p.id===id)[0]
-    console.log(piece)
-    console.log(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setTitle(piece.title)
     setComposer(piece.composer)
     setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty))
     setGenre(piece.genre)
     setNumPlayers(piece.number_of_players)
-    if(piece.reference_recording !== null){
+    if(piece.reference_recording !== null && piece.reference_recording !== ""){
         setShowRefRecord(true)
         setRefRecord(piece.reference_recording)
-    } if (piece.arranger !== null){
+    } if (piece.arranger !== null && piece.arranger !== ""){
         setShowArr(true)
         setArranger(piece.arranger)
     }
@@ -140,6 +139,7 @@ function handleAddPieceClick(){
                 setGenre={setGenre}
                 difficulty={difficulty}
                 setDifficulty={setDifficulty}
+                difficultyToString={difficultyToString}
                 numPlayers={numPlayers}
                 setNumPlayers={setNumPlayers}
                 refRecord={refRecord}

@@ -17,7 +17,9 @@ import Button from "@mui/material/Button";
 function AddEditPieceForm(props){
 
     const [genreDropdownOptions, setGenreDropdownOptions] = useState(props.musicLibrary.map(p=>p.genre))
+    const [difficultyDropdownOptions, setDifficultyDropdownOptions] = useState(props.musicLibrary.map(p=>p.difficulty))
     const [createGenre, setCreateGenre] = useState(false)
+    const numOfPlayerArr = [1,2,3,4,5,6,7,8,9,10,11,"12+"]
 
 
     useEffect(()=>{ 
@@ -26,6 +28,18 @@ function AddEditPieceForm(props){
         }))
     },[])
 
+    useEffect(()=>{ 
+        setDifficultyDropdownOptions([...new Set(difficultyDropdownOptions)].sort().map(diff=>{
+            return <MenuItem value={diff + " - " + props.difficultyToString(diff)}>{diff + " - " + props.difficultyToString(diff)}</MenuItem>
+        }))
+    },[])
+
+    const numPlayerDropdowns = numOfPlayerArr.map(num=>{
+        return <MenuItem value={num}>{num}</MenuItem>
+    })
+
+
+    console.log(props.difficulty)
 
 // Submit form for NEW piece
     function handleNewPieceSubmit(e){
@@ -148,11 +162,7 @@ function AddEditPieceForm(props){
                     onChange={e=>props.setDifficulty(e.target.value)}
                 >
                     <MenuItem disabled value={null}>--Select Difficulty--</MenuItem>
-                    <MenuItem value={1}>1 - Easy</MenuItem>
-                    <MenuItem value={2}>2 - Med-Easy</MenuItem>
-                    <MenuItem value={3}>3 - Medium</MenuItem>
-                    <MenuItem value={4}>4 - Med-Advanced</MenuItem>
-                    <MenuItem value={5}>5 - Advanced</MenuItem>
+                    {difficultyDropdownOptions}
                 </Select>
                 </FormControl>
         </Grid>
@@ -192,18 +202,7 @@ function AddEditPieceForm(props){
                     onChange={e=>props.setNumPlayers(e.target.value)}
                 >
                     <MenuItem disabled value={null}>--Select Number of Players--</MenuItem>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
-                    <MenuItem value={7}>7</MenuItem>
-                    <MenuItem value={8}>8</MenuItem>
-                    <MenuItem value={9}>9</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                    <MenuItem value={11}>11</MenuItem>
-                    <MenuItem value={12}>12+</MenuItem>
+                    {numPlayerDropdowns}
                 </Select>
                 </FormControl>
         </Grid>
