@@ -46,7 +46,7 @@ function Piece(props){
             })
         })
         setPerformArr(arr)
-    },[])
+    },[props.concertPrograms])
 
     const performancesOfPiece = performArr.map(performance=>{
         const targetTitle = props.concertPrograms.filter(program=>program.id === performance.concert_id)[0].concert_description
