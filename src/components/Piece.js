@@ -122,7 +122,7 @@ return(
         <Typography variant="body2" component="p" className="card-body"><strong>Genre: </strong>{props.genre === "--Select Genre--" ? null : props.genre}</Typography> 
         <Typography variant="body2" component="p" className="card-body"><strong>Number of Players: </strong>{props.number_of_players}</Typography> 
         {props.reference_recording === null ? 
-        null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }            
+        null : <Link href={props.reference_recording} target="_blank" rel="noreferrer"><strong>Reference Recording</strong></Link> }  <br></br>
         <Button variant="text" onClick={()=>setShowPerformances(!showPerformances)}>{showPerformances ? "Hide Performances" : "Show Performances" }</Button>
         { showPerformances ? <Typography variant="subtitle2" component="h4">Performances: </Typography> : null }
         { showPerformances ? performancesOfPiece : null }
