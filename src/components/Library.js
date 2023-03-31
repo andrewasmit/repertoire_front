@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Piece from "./Piece";
 import AddEditPieceForm from "./AddEditPieceForm";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, Collapse } from "@mui/material";
 
 
 function Library({ 
@@ -84,14 +84,14 @@ function Library({
 function handleEditPiece(id){
     resetForm();
     setShowForm(true);
-    setEditPiece(true)
-    setEditId(id)
-    const piece = musicLibrary.filter(p=>p.id===id)[0]
-    setTitle(piece.title)
-    setComposer(piece.composer)
-    setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty))
-    setGenre(piece.genre)
-    setNumPlayers(piece.number_of_players)
+    setEditPiece(true);
+    setEditId(id);
+    const piece = musicLibrary.filter(p=>p.id===id)[0];
+    setTitle(piece.title);
+    setComposer(piece.composer);
+    setDifficulty(piece.difficulty + " - " + difficultyToString(piece.difficulty));
+    setGenre(piece.genre);
+    setNumPlayers(piece.number_of_players);
     if(piece.reference_recording !== null && piece.reference_recording !== ""){
         setShowRefRecord(true)
         setRefRecord(piece.reference_recording)
@@ -136,39 +136,41 @@ function handleAddPieceClick(){
         <div  id ="library">
             <Typography variant="h4" component="h3" className="page-header">Music Library</Typography>
             <Button variant="outlined" size="small" onClick={handleAddPieceClick} >{ showForm ? "Hide Form" : "Add New Piece" }</Button>
-            {showForm ? <AddEditPieceForm 
-                musicLibrary={ musicLibrary } 
-                setMusicLibrary={ setMusicLibrary } 
-                editPiece={ editPiece }
-                setEditPiece={setEditPiece}
-                editId={editId}
-                setEditId={setEditId}
-                title={title}
-                setTitle={setTitle}
-                composer={composer}
-                setComposer={setComposer}
-                arranger={arranger}
-                setArranger={setArranger}
-                notes={notes}
-                setNotes={setNotes}
-                genre={genre}
-                setGenre={setGenre}
-                difficulty={difficulty}
-                setDifficulty={setDifficulty}
-                difficultyToString={difficultyToString}
-                numPlayers={numPlayers}
-                setNumPlayers={setNumPlayers}
-                refRecord={refRecord}
-                setRefRecord={setRefRecord}
-                showArr={showArr}
-                setShowArr={setShowArr}
-                showNotes={showNotes}
-                setShowNotes={setShowNotes}
-                showRefRecord={showRefRecord}
-                setShowRefRecord={setShowRefRecord}
-                resetForm={resetForm}
-                handleNotify={handleNotify}
-            /> : null }
+            <Collapse in={showForm}>
+                <AddEditPieceForm 
+                    musicLibrary={ musicLibrary } 
+                    setMusicLibrary={ setMusicLibrary } 
+                    editPiece={ editPiece }
+                    setEditPiece={setEditPiece}
+                    editId={editId}
+                    setEditId={setEditId}
+                    title={title}
+                    setTitle={setTitle}
+                    composer={composer}
+                    setComposer={setComposer}
+                    arranger={arranger}
+                    setArranger={setArranger}
+                    notes={notes}
+                    setNotes={setNotes}
+                    genre={genre}
+                    setGenre={setGenre}
+                    difficulty={difficulty}
+                    setDifficulty={setDifficulty}
+                    difficultyToString={difficultyToString}
+                    numPlayers={numPlayers}
+                    setNumPlayers={setNumPlayers}
+                    refRecord={refRecord}
+                    setRefRecord={setRefRecord}
+                    showArr={showArr}
+                    setShowArr={setShowArr}
+                    showNotes={showNotes}
+                    setShowNotes={setShowNotes}
+                    showRefRecord={showRefRecord}
+                    setShowRefRecord={setShowRefRecord}
+                    resetForm={resetForm}
+                    handleNotify={handleNotify}
+                />
+            </Collapse>
             <Grid container spacing={2}>
                 {piecesToDisplay}
             </Grid>

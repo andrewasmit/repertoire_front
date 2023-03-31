@@ -9,11 +9,10 @@ import Paper from '@mui/material/Paper';
 
 
 function Piece(props){
-
     const [showAddNote, setShowAddNote] = useState(false);
     const [newNote, setNewNote] = useState("");
     const [showNotes, setShowNotes] = useState(false);
-    const [showPerformances, setShowPerformances] = useState(false)
+    const [showPerformances, setShowPerformances] = useState(false);
     const [performArr, setPerformArr] = useState([]);
 
     const notesToDisplay = props.notes.map(n=>{
@@ -108,7 +107,8 @@ function Piece(props){
 
     // Function passed up to Library to handle state properly
     function handleEditPieceClick(){
-        props.handleEditPiece(props.id)
+        props.setShowForm(true);
+        props.handleEditPiece(props.id);
     }
     
 // Return of JSX
